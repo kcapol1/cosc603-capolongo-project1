@@ -118,9 +118,10 @@ public class FireDanger {
 		}													//	End If
 
 
-        System.out.print("ISNOW =  " + ISNOW + "\tGRASS =  " + GRASS + "\tTIMBER =  " + TIMBER);
-        System.out.print("\tGRASS =  " + GRASS + "\tFFM =  " + FFM + "\tBUO =  " + BUO);
         System.out.println();
+        System.out.format("Fine Fuel Moisture = %-10.3f%n",FFM);
+        System.out.format("Buildup Index = %-10.3f%n",BUO);
+
         
 	}
 
