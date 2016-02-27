@@ -16,9 +16,9 @@ public class FireDanger {
 //		int ISNOW = 1;
   		int ISNOW = 0;
 		double windSpeed = 14;
-		double IHERB = 1;	// The current herb state of the district
-//		double IHERB = 2;
-//		double IHERB = 3;
+		double districtHerbState = 1;	// The current herb state of the district
+//		double districtHerbState = 2;
+//		double districtHerbState = 3;
 		double dryingFactor = 0;
 		double grassSpreadIndex = 5;
 		double timberSpreadIndex = 10;
@@ -44,7 +44,7 @@ public class FireDanger {
 	        dryingFactor = findDryingFactor();
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
-	        fineFuelMoisture = fineFuelMoisture + (IHERB - 1.0) * 5.0;				
+	        fineFuelMoisture = fineFuelMoisture + (districtHerbState - 1.0) * 5.0;				
 		
             // Set Fine Fuel Moisture to one (1) if less than one
             if(fineFuelMoisture <= 1)
