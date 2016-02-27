@@ -2,7 +2,8 @@ package cosc603.project1;
 
 public class FireDanger {
 
-	private	static double buildupIndex = 3;
+	private	static double buildupIndex = 3.0;
+	private	static double fineFuelMoisture = 99.0;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -12,8 +13,8 @@ public class FireDanger {
 		double WET = 50.0;
 //		int ISNOW = 1;
   		int ISNOW = 0;
-		double PRECIP = 0.5;
-//		double PRECIP = 0.1;
+//		double PRECIP = 0.5;
+		double PRECIP = 0.1;
 		double WIND = 14;
 		double IHERB = 1;	// The current herb state of the district
 //		double IHERB = 2;
@@ -43,18 +44,18 @@ public class FireDanger {
 		{ 	/* No show on the ground so compute spread indexes and fire load */
 
 			// Calculate Fine Fuel Moisture
-			FFM = computeFineFuelMoisture(DRY,WET);
+			computeFineFuelMoisture(DRY,WET);
 
             // Find Drying Factor in table
-	        DF = findDryingFactor(FFM);
+	        DF = findDryingFactor();
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
-	        FFM = FFM + (IHERB - 1.0) * 5.0;				
+	        fineFuelMoisture = fineFuelMoisture + (IHERB - 1.0) * 5.0;				
 		
             // Set Fine Fuel Moisture to one (1) if less than one
-            if(FFM <= 1)
+            if(fineFuelMoisture <= 1)
 	        {
-	        	FFM = 1;
+            	fineFuelMoisture = 1;
 	        }
             
             // Adjust Buildup Index for precipitation before adding to Drying Factor
@@ -68,10 +69,10 @@ public class FireDanger {
             buildupIndex = buildupIndex + DF;
 
             // Calculate Adjusted Fuel Moisture for heavy fuels
-            ADFM = 0.9 * FFM + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
+            ADFM = 0.9 * fineFuelMoisture + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
             
             // Calculate Grass Spread Index
-            GRASS = computeSpreadIndex(WIND,FFM);
+            GRASS = computeSpreadIndex(WIND,fineFuelMoisture);
 
             // Calculate Timber Spread Index
             TIMBER = computeSpreadIndex(WIND,ADFM);
@@ -82,7 +83,7 @@ public class FireDanger {
 
 
         System.out.println();
-        System.out.format("Fine Fuel Moisture = %-10.3f%n",FFM);
+        System.out.format("Fine Fuel Moisture = %-10.3f%n",fineFuelMoisture);
         System.out.format("Adjusted Fuel Moisture = %-10.3f%n",ADFM);
         System.out.format("Drying Factor = %-10.3f%n",DF);
         System.out.format("Buildup Index = %-10.3f%n",buildupIndex);
@@ -102,8 +103,7 @@ public class FireDanger {
 		}
 	}
 	
-	public static double computeFineFuelMoisture(double dryBulbTemp,double wetBulbTemp) {
-		double value = 0;
+	private static void computeFineFuelMoisture(double dryBulbTemp,double wetBulbTemp) {
 		double diff = 0;
 		int tempInt = 3;
 		double[] A = new double[] {-0.185900, -0.85900, -0.05966, -0.07737};
@@ -121,17 +121,16 @@ public class FireDanger {
         	}												//				End If
         }													//			Next
 
-        value = B[tempInt] * Math.exp(A[tempInt] * diff);	//		FFM=B(I)*EXP (A(I)*DIF) 	
+		fineFuelMoisture = B[tempInt] * Math.exp(A[tempInt] * diff);	//		FFM=B(I)*EXP (A(I)*DIF) 	
 
-        if(value < 1)										//			If FFM < 1 Then
+        if(fineFuelMoisture < 1)										//			If FFM < 1 Then
         {
-        	value = 1;										//				FFM = 1
+        	fineFuelMoisture = 1;										//				FFM = 1
         }													//			End If
 
-        return value;
 	}
 	
-	public static double findDryingFactor(double fineFuelMoisture) {
+	public static double findDryingFactor() {
 		double value = 0;
 		int tempInt = 5;
 		double[] D = new double[] {16.0, 10.0, 7.0, 5.0, 4.0, 3.0};
