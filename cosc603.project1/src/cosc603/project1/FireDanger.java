@@ -70,32 +70,22 @@ public class FireDanger {
             // Calculate Adjusted Fuel Moisture for heavy fuels
             ADFM = 0.9 * FFM + 0.5 + 9.5 * Math.exp(-BUO/50.0);
             
-            // Check if fuel moistures are greater than thirty percent
-            if(ADFM < 30 )												//			If ADFM < 30 Then
+            // Check if Adjusted Fuel Moisture is greater than thirty percent
+            if(ADFM < 30 )
             {				
-            	if(WIND < 14 )											//				If WIND < 14 Then 			(Line 19)
+                // Check if Fine Fuel Moisture is greater than thirty percent
+            	if(FFM > 30 )
             	{
-            		TIMBER = computeSpreadIndex(WIND,ADFM);				//					TIMBER = .01312*(WIND+6.) * (33.-ADFM**1.65 – 3.
-            		GRASS = computeSpreadIndex(WIND,FFM);				//					GRASS = .01312*(WIND+6.) * (33.-FFM**1.65 – 3.
-																		//					If TIMBER < 1 Then
-																		//						TIMBER=1
-																		//						If GRASS < 1 Then
-																		//							GRASS =1
-																		//						End If
-																		//					End If
-		            	}
-            	else													//				Else
+            		GRASS = 1;
+            		TIMBER = 1;
+            	}
+            	else
             	{
-			            												//					TIMBER = .00918*(WIND+14.) * (33.-ADFM)**1.65 – 3.
-																		//					GRASS = .00918*(WIND+14.) * (33.-FFM)**1.65 – 3.
-																		//					If GRASS > 99 Then
-																		//						GRASS =99
-																		//					End If
-																		//					If TIMBER > 99 Then
-																		//						TIMBER =99
-            	}														//					End If
-            }															//				End If
-            else														//			Else
+            		GRASS = computeSpreadIndex(WIND,FFM);
+            		TIMBER = computeSpreadIndex(WIND,ADFM);
+            	}
+            }
+            else
             {											
             	if(FFM < 30 )											//				If FFM < 30 Then			(Line 16)
             	{
