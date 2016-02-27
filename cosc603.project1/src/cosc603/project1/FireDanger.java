@@ -6,6 +6,7 @@ public class FireDanger {
 	private	static double fineFuelMoisture_ = 99.0;
 	private	static double adjustedFuelMoisture_ = 99.0;
 	private	static double precipitation_ = 0.1;
+	private	static double districtHerbState_ = 1;	// The current herb state of the district
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -13,12 +14,8 @@ public class FireDanger {
 //		Initialize
 		double dryBulbTemperature = 78.0;
 		double wetBulbTemperature = 50.0;
-//		int snowPresent = 1;
   		boolean isSnowPresent = false;
 		double windSpeed = 14;
-		double districtHerbState = 1;	// The current herb state of the district
-//		double districtHerbState = 2;
-//		double districtHerbState = 3;
 		double dryingFactor = 0;
 		double grassSpreadIndex = 5;
 		double timberSpreadIndex = 10;
@@ -44,7 +41,7 @@ public class FireDanger {
 	        dryingFactor = findDryingFactor();
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
-	        fineFuelMoisture_ = fineFuelMoisture_ + (districtHerbState - 1.0) * 5.0;				
+	        fineFuelMoisture_ = fineFuelMoisture_ + (districtHerbState_ - 1.0) * 5.0;				
 		
             // Set Fine Fuel Moisture to one (1) if less than one
             if(fineFuelMoisture_ <= 1)
