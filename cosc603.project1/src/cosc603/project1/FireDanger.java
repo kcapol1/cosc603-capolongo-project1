@@ -77,21 +77,7 @@ public class FireDanger {
             TIMBER = computeSpreadIndex(WIND,ADFM);
             
             // Calculate Fire Danger Rating
-            if(TIMBER > 0 )									//		If TIMBER > 0 Then
-            {
-            	if(BUO > 0 )								//			If BUO > 0 Then
-            	{
-            		FLOAD = 1.75 * Math.log10(TIMBER) + 0.32 * Math.log10(BUO ) - 1.640;	//				FLOAD = 1.75*ALOG10 (TIMBER) + .32*ALOG10( BUO ) – 1.640
-            		if(FLOAD <= 0 )							//				If FLOAD <= 0 Then
-            		{
-            			FLOAD =	0;							//					FLOAD = 0
-            		}
-            	}	
-            	else										//				Else
-            	{
-            		FLOAD = Math.pow(10.0,FLOAD);			//					FLOAD = 10. ** FLOAD
-            	}											//				End If
-            }												//			End If
+            FLOAD = computeFireDangerIndex(TIMBER,BUO);
 		}
 
 
@@ -196,6 +182,25 @@ public class FireDanger {
 			value = 1;
 		}
 		
+		return value;
+	}
+	
+	public static double computeFireDangerIndex(double timberSpreadIndex,double buildupIndex) {
+		double value = 0;
+		// Check if either Timber Spread Index or Buildup Index are zero
+		if((timberSpreadIndex > 0) && (buildupIndex > 0))
+        {
+    		//				FLOAD = 1.75*ALOG10 (TIMBER) + .32*ALOG10( BUO ) – 1.640
+        	value = 1.75 * Math.log10(timberSpreadIndex) + 0.32 * Math.log10(buildupIndex ) - 1.640;	
+        	if(value > 0 )
+        	{
+        		value =	Math.pow(10.0,value);
+        	}	
+        	else
+        	{
+        		value = 0;
+        	}        	
+        }
 		return value;
 	}
 
