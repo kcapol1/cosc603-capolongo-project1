@@ -71,10 +71,8 @@ public class FireDanger {
             ADFM = 0.9 * FFM + 0.5 + 9.5 * Math.exp(-BUO/50.0);
             
             // Check if fuel moistures are greater than thirty percent
-            
-            		
-															//
-															//			If ADFM < 30 Then 
+            if(ADFM < 30 )									//			If ADFM < 30 Then
+            {				
 															//				If WIND < 14 Then 			(Line 19)
 															//					TIMBER = .01312*(WIND+6.) * (33.-ADFM**1.65 – 3.
 															//					GRASS = .01312*(WIND+6.) * (33.-FFM**1.65 – 3.
@@ -93,9 +91,10 @@ public class FireDanger {
 															//					If TIMBER > 99 Then
 															//						TIMBER =99
 															//					End If
-															//				End If
-															//			Else
-															//				If FFM < 30 Then			(Line 16)
+            }												//				End If
+            else											//			Else
+            {											
+            												//				If FFM < 30 Then			(Line 16)
 															//					TIMBER=1			(Line 18)
 															//					If WIND < 14 Then
 															//						GRASS = .01312*(WIND+6.) * (33.-FFM)**1.65 – 3.
@@ -118,19 +117,27 @@ public class FireDanger {
 															//					GRASS =1
 															//					TIMBER=1
 															//				End If
-															//			End If
+            }												//			End If
 															//			
-															//
-															//		If TIMBER > 0 Then
-															//			If BUO > 0 Then
-															//				FLOAD = 1.75*ALOG10 (TIMBER) + .32*ALOG10( BUO ) – 1.640
-															//				If FLOAD <= 0 Then
-															//					FLOAD = 0
-															//				Else
-															//					FLOAD = 10. ** FLOAD
-															//				End If
-															//			End If
-		}													//	End If
+
+            
+            // Calculate Fire Danger Rating
+            if(TIMBER > 0 )									//		If TIMBER > 0 Then
+            {
+            	if(BUO > 0 )								//			If BUO > 0 Then
+            	{
+            		FLOAD = 1.75 * Math.log10(TIMBER) + 0.32 * Math.log10(BUO ) - 1.640;	//				FLOAD = 1.75*ALOG10 (TIMBER) + .32*ALOG10( BUO ) – 1.640
+            		if(FLOAD <= 0 )							//				If FLOAD <= 0 Then
+            		{
+            			FLOAD =	0;							//					FLOAD = 0
+            		}
+            	}	
+            	else										//				Else
+            	{
+            		FLOAD = Math.pow(10.0,FLOAD);			//					FLOAD = 10. ** FLOAD
+            	}											//				End If
+            }												//			End If
+		}
 
 
         System.out.println();
@@ -138,6 +145,7 @@ public class FireDanger {
         System.out.format("Adjusted Fuel Moisture = %-10.3f%n",ADFM);
         System.out.format("Drying Factor = %-10.3f%n",DF);
         System.out.format("Buildup Index = %-10.3f%n",BUO);
+        System.out.format("Fire Load Rating = %-10.3f%n",FLOAD);
         
 	}
 
