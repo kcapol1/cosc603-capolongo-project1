@@ -13,8 +13,8 @@ public class FireDanger {
 		double wetBulbTemperature = 50.0;
 //		int ISNOW = 1;
   		int ISNOW = 0;
-//		double PRECIP = 0.5;
-		double PRECIP = 0.1;
+//		double precipitation = 0.5;
+		double precipitation = 0.1;
 		double WIND = 14;
 		double IHERB = 1;	// The current herb state of the district
 //		double IHERB = 2;
@@ -34,10 +34,10 @@ public class FireDanger {
 			TIMBER = 0;
 			
 	        // Adjust Buildup Index for precipitation before adding to Drying Factor
-			if(PRECIP > 0.1) 
+			if(precipitation > 0.1) 
 			{	
             	// Adjust Buildup Index
-				adjustBuldupIndex(PRECIP);
+				adjustBuldupIndex(precipitation);
 			}
 		} 
 		else
@@ -59,10 +59,10 @@ public class FireDanger {
 	        }
             
             // Adjust Buildup Index for precipitation before adding to Drying Factor
-            if(PRECIP > 0.1)
+            if(precipitation > 0.1)
             {				
             	// Adjust Buildup Index
-				adjustBuldupIndex(PRECIP);
+				adjustBuldupIndex(precipitation);
             }
             
             // Add Drying Factor to Buildup Index
@@ -95,7 +95,7 @@ public class FireDanger {
 
 
 	private static void adjustBuldupIndex(double precipitation) {
-		//		BUO=-50.*ALOG(    1.-(1. - EXP(-BUO/50.) ) * EXP(-1.175*(PRECIP-.1) ) )
+		//		BUO=-50.*ALOG(    1.-(1. - EXP(-BUO/50.) ) * EXP(-1.175*(precipitation-.1) ) )
 		buildupIndex = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (buildupIndex/50.0)) * Math.exp( -1.175 * (precipitation - 0.1))));
 		//		If BUO < 0 then BUI = 0		
 		if(buildupIndex < 0) {
