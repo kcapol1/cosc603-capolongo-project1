@@ -149,7 +149,7 @@ public class FireDanger {
         return value;
 	}
 	
-	public static double computeSpreadIndex(double wind,double fuelMoisture) {
+	private static double computeSpreadIndex(double wind,double fuelMoisture) {
 		double value = 0;
 		
         // Check if Fuel Moisture is greater than thirty percent
