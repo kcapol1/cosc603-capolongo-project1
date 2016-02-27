@@ -19,7 +19,7 @@ public class FireDanger {
 		double IHERB = 1;	// The current herb state of the district
 //		double IHERB = 2;
 //		double IHERB = 3;
-		double DF = 0;
+		double dryingFactor = 0;
 		double grassSpreadIndex = 5;
 		double timberSpreadIndex = 10;
 		double FLOAD = 0;
@@ -41,7 +41,7 @@ public class FireDanger {
 			computeFineFuelMoisture(dryBulbTemperature,wetBulbTemperature);
 
             // Find Drying Factor in table
-	        DF = findDryingFactor();
+	        dryingFactor = findDryingFactor();
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
 	        fineFuelMoisture = fineFuelMoisture + (IHERB - 1.0) * 5.0;				
@@ -56,7 +56,7 @@ public class FireDanger {
 			adjustBuldupIndex();
             
             // Add Drying Factor to Buildup Index
-            buildupIndex = buildupIndex + DF;
+            buildupIndex = buildupIndex + dryingFactor;
 
             // Calculate Adjusted Fuel Moisture for heavy fuels
             adjustedFuelMoisture = 0.9 * fineFuelMoisture + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
@@ -75,7 +75,7 @@ public class FireDanger {
         System.out.println();
         System.out.format("Fine Fuel Moisture = %-10.3f%n",fineFuelMoisture);
         System.out.format("Adjusted Fuel Moisture = %-10.3f%n",adjustedFuelMoisture);
-        System.out.format("Drying Factor = %-10.3f%n",DF);
+        System.out.format("Drying Factor = %-10.3f%n",dryingFactor);
         System.out.format("Buildup Index = %-10.3f%n",buildupIndex);
         System.out.format("Grass Spread Index = %-10.3f%n",grassSpreadIndex);
         System.out.format("Timber Spread Index = %-10.3f%n",timberSpreadIndex);
