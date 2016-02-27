@@ -70,54 +70,11 @@ public class FireDanger {
             // Calculate Adjusted Fuel Moisture for heavy fuels
             ADFM = 0.9 * FFM + 0.5 + 9.5 * Math.exp(-BUO/50.0);
             
-            // Check if Adjusted Fuel Moisture is greater than thirty percent
-            if(ADFM < 30 )
-            {				
-                // Check if Fine Fuel Moisture is greater than thirty percent
-            	if(FFM > 30 )
-            	{
-            		GRASS = 1;
-            		TIMBER = 1;
-            	}
-            	else
-            	{
-            		GRASS = computeSpreadIndex(WIND,FFM);
-            		TIMBER = computeSpreadIndex(WIND,ADFM);
-            	}
-            }
-            else
-            {											
-            	if(FFM < 30 )											//				If FFM < 30 Then			(Line 16)
-            	{
-            		TIMBER=1;											//					TIMBER=1			(Line 18)
-            		if(WIND < 14 )										//					If WIND < 14 Then
-            		{
-            															//						GRASS = .01312*(WIND+6.) * (33.-FFM)**1.65 – 3.
-																		//						If TIMBER < 1 Then
-																		//							TIMBER=1
-																		//						End If
-																		//						If GRASS < 1 Then
-																		//							GRASS =1
-																		//						End If
-            		}
-            		else												//					Else
-            		{
-            															//						GRASS = .00918*(WIND+14.) * (33.-FFM)**1.65 – 3.
-																		//						If GRASS > 99 Then
-																		//							GRASS =99
-																		//						End If
-																		//						If TIMBER > 99 Then
-																		//							TIMBER =99
-            		}													//						End If
-            	}														//					End If
-            	else            										//				Else
-            	{
-            															//					GRASS =1
-																		//					TIMBER=1
-            	}														//				End If
-            }															//			End If
-																		//			
+            // Calculate Grass Spread Index
+            GRASS = computeSpreadIndex(WIND,FFM);
 
+            // Calculate Timber Spread Index
+            TIMBER = computeSpreadIndex(WIND,ADFM);
             
             // Calculate Fire Danger Rating
             if(TIMBER > 0 )									//		If TIMBER > 0 Then
@@ -213,21 +170,30 @@ public class FireDanger {
 	
 	public static double computeSpreadIndex(double wind,double fuelMoisture) {
 		double value = 0;
-		if(wind < 14 )
+		
+        // Check if Fuel Moisture is greater than thirty percent
+		if(fuelMoisture < 30 )
 		{
-			value = .01312*(wind+6.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
+			if(wind < 14 )
+			{
+				value = .01312*(wind+6.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
+			}
+			else
+			{
+				value = .00918*(wind+14.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
+			}
+			if(value < 1 )
+			{
+				value = 1;
+			}
+			if(value > 99 )
+			{
+				value = 99;
+			}
 		}
 		else
 		{
-			value = .00918*(wind+14.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
-		}
-		if(value < 1 )
-		{
 			value = 1;
-		}
-		if(value > 99 )
-		{
-			value = 99;
 		}
 		
 		return value;
