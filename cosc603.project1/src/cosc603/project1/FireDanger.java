@@ -130,7 +130,7 @@ public class FireDanger {
 
 	}
 	
-	public static double findDryingFactor() {
+	private static double findDryingFactor() {
 		double value = 0;
 		int tempInt = 5;
 		double[] D = new double[] {16.0, 10.0, 7.0, 5.0, 4.0, 3.0};
