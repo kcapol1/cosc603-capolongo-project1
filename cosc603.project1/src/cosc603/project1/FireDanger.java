@@ -75,8 +75,8 @@ public class FireDanger {
             {				
             	if(WIND < 14 )											//				If WIND < 14 Then 			(Line 19)
             	{
-            		TIMBER = computeTimberSpreadIndex(WIND,ADFM);		//					TIMBER = .01312*(WIND+6.) * (33.-ADFM**1.65 – 3.
-            		GRASS = .01312*(WIND+6.) * Math.pow(33.-FFM,1.65) - 3.0;	//					GRASS = .01312*(WIND+6.) * (33.-FFM**1.65 – 3.
+            		TIMBER = computeSpreadIndex(WIND,ADFM);				//					TIMBER = .01312*(WIND+6.) * (33.-ADFM**1.65 – 3.
+            		GRASS = computeSpreadIndex(WIND,FFM);				//					GRASS = .01312*(WIND+6.) * (33.-FFM**1.65 – 3.
 																		//					If TIMBER < 1 Then
 																		//						TIMBER=1
 																		//						If GRASS < 1 Then
@@ -153,6 +153,7 @@ public class FireDanger {
         System.out.format("Adjusted Fuel Moisture = %-10.3f%n",ADFM);
         System.out.format("Drying Factor = %-10.3f%n",DF);
         System.out.format("Buildup Index = %-10.3f%n",BUO);
+        System.out.format("Grass Spread Index = %-10.3f%n",GRASS);
         System.out.format("Timber Spread Index = %-10.3f%n",TIMBER);
         System.out.format("Fire Load Rating = %-10.3f%n",FLOAD);
         
@@ -219,15 +220,16 @@ public class FireDanger {
 
         return value;
 	}
-	public static double computeTimberSpreadIndex(double wind,double adjustedFuelMoisture) {
+	
+	public static double computeSpreadIndex(double wind,double fuelMoisture) {
 		double value = 0;
 		if(wind < 14 )
 		{
-			value = .01312*(wind+6.) * Math.pow(33.-adjustedFuelMoisture,1.65) -3.0;
+			value = .01312*(wind+6.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
 		}
 		else
 		{
-			value = .00918*(wind+14.) * Math.pow(33.-adjustedFuelMoisture,1.65) -3.0;
+			value = .00918*(wind+14.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
 		}
 		if(value < 1 )
 		{
@@ -240,4 +242,5 @@ public class FireDanger {
 		
 		return value;
 	}
+
 }
