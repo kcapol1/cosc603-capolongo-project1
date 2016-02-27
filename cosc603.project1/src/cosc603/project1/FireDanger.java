@@ -20,7 +20,7 @@ public class FireDanger {
 //		double IHERB = 3;
 		double DF = 0;
 		double FFM = 99;
-		double ADFM = 99;
+		double ADMF = 99;
 		double GRASS = 0;
 		double TIMBER = 0;
 		double FLOAD = 0;
@@ -53,18 +53,15 @@ public class FireDanger {
 	        {
 	        	FFM = 1;
 	        }
-
-            // Adjust the Buildup Index for precipitation before adding Drying Factor
-            if(PRECIP > 0.1)								//			If PRECIP > 0.1 then
-            {				
-            												//				BUO=-50.*ALOG(1.-(1.-EXP (-BUI/50.))*EXP (-1.175*(PRECIP-.1)))
+	        
+	        												//			If PRECIP > 0.1 then
+															//				BUO=-50.*ALOG(1.-(1.-EXP (-BUI/50.))*EXP (-1.175*(PRECIP-.1)))
 															//				If BUO < 0 Then
 															//					BUO = 0
-            	BUO = adjustBuldupIndex(BUO,PRECIP);		//				End If
-            }												//			End If
-            												
-            BUO = BUO + DF;									//			BUO = BUO + DF
-            ADFM = .9*FFM + .5 + 9.5*Math.exp( -BUO/50.);	//			ADFM = .9*FFM + .5 + 9.5*EXP ( -BUO/50.)
+															//				End If
+															//			End If
+															//			BUO = BUO + DF
+															//			ADFM = .9*FFM + .5 + 9.5*EXP ( -BUO/50.)
 															//
 															//			If ADFM < 30 Then 
 															//				If WIND < 14 Then 			(Line 19)
