@@ -62,7 +62,7 @@ public class FireDanger {
             	BUO = adjustBuldupIndex(BUO,PRECIP);		//				End If
             }												//			End If
             												
-            												//			BUO = BUO + DF
+            BUO = BUO + DF												//			BUO = BUO + DF
 															//			ADFM = .9*FFM + .5 + 9.5*EXP ( -BUO/50.)
 															//
 															//			If ADFM < 30 Then 
