@@ -14,7 +14,7 @@ public class FireDanger {
 		double dryBulbTemperature = 78.0;
 		double wetBulbTemperature = 50.0;
 //		int snowPresent = 1;
-  		boolean snowPresent = false;
+  		boolean isSnowPresent = false;
 		double windSpeed = 14;
 		double districtHerbState = 1;	// The current herb state of the district
 //		double districtHerbState = 2;
@@ -26,7 +26,7 @@ public class FireDanger {
 
 		// Check if snow is present
 
-		if(snowPresent)
+		if(isSnowPresent)
 		{ 	/* There is snow on the ground.  Set the Timber and Grass indexes to zero (0)  */
 			grassSpreadIndex = 0;
 			timberSpreadIndex = 0;
