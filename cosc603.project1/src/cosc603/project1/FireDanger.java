@@ -20,7 +20,7 @@ public class FireDanger {
 //		double IHERB = 3;
 		double DF = 0;
 		double FFM = 99;
-		double ADMF = 99;
+		double ADFM = 99;
 		double GRASS = 0;
 		double TIMBER = 0;
 		double FLOAD = 0;
@@ -37,27 +37,34 @@ public class FireDanger {
 			}												//			End If
 		} 
 		else												//		Else
-		{							
-															//			DIF=DRY-WET
- 															//			For I = 1 to 3 Do
-															//				If DIF <= C(I) Then
-															//					Exit for
-															//				End If
-															//			Next
-															//			FFM=B(I)*EXP (A(I)*DIF) 	
-															//			If FFM < 1 Then
-															//				FFM = 1
-															//			End If
-	        FFM = computeFineFuelMoisture(DRY,WET);
-															//			FFM = FFM + (IHERB-1) *5
-															//			If PRECIP > 0.1 then
-															//				BUO=-50.*ALOG(1.-(1.-EXP (-BUI/50.))*EXP (-1.175*(PRECIP-.1)))
+		{/* No show on the ground so compute spread indexes and fire load */
+
+			// Calculate Fine Fuel Moisture
+			FFM = computeFineFuelMoisture(DRY,WET);
+
+            // Find Drying Factor in table
+	        DF = findDryingFactor(FFM);
+
+	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
+	        FFM = FFM + (IHERB - 1.0) * 5.0;				
+		
+            // Set Fine Fuel Moisture to one (1) if less than one
+            if(FFM <= 1)
+	        {
+	        	FFM = 1;
+	        }
+
+            // Adjust the Buildup Index for precipitation before adding Drying Factor
+            if(PRECIP > 0.1)								//			If PRECIP > 0.1 then
+            {				
+            												//				BUO=-50.*ALOG(1.-(1.-EXP (-BUI/50.))*EXP (-1.175*(PRECIP-.1)))
 															//				If BUO < 0 Then
 															//					BUO = 0
-															//				End If
-															//			End If
-															//			BUO = BUO + DF
-															//			ADFM = .9*FFM + .5 + 9.5*EXP ( -BUO/50.)
+            	BUO = adjustBuldupIndex(BUO,PRECIP);		//				End If
+            }												//			End If
+            												
+            BUO = BUO + DF;									//			BUO = BUO + DF
+            ADFM = .9*FFM + .5 + 9.5*Math.exp( -BUO/50.);	//			ADFM = .9*FFM + .5 + 9.5*EXP ( -BUO/50.)
 															//
 															//			If ADFM < 30 Then 
 															//				If WIND < 14 Then 			(Line 19)
@@ -120,8 +127,8 @@ public class FireDanger {
 
         System.out.println();
         System.out.format("Fine Fuel Moisture = %-10.3f%n",FFM);
+        System.out.format("Drying Factor = %-10.3f%n",DF);
         System.out.format("Buildup Index = %-10.3f%n",BUO);
-
         
 	}
 
@@ -142,36 +149,18 @@ public class FireDanger {
 	public static double computeFineFuelMoisture(double dryBulbTemp,double wetBulbTemp) {
 		double value = 0;
 		double diff = 0;
-		int tempInt = 0;
-		double[] A;
-        A = new double[4];
-        A[0] = -0.185900;
-        A[1] = -0.85900;
-        A[2] = -0.05966;
-        A[3] = -0.07737;
-		double[] B;
-        B = new double[4];
-        B[0] = 30.0;
-        B[1] = 19.2;
-        B[2] = 13.8;
-        B[3] = 22.5;
-		double[] rangeDrytoWet;
-        rangeDrytoWet = new double[3];
-        rangeDrytoWet[0] = 4.5;
-        rangeDrytoWet[1] = 12.5;
-        rangeDrytoWet[2] = 27.5;
+		int tempInt = 3;
+		double[] A = new double[] {-0.185900, -0.85900, -0.05966, -0.07737};
+		double[] B = new double[] {30.0, 19.2, 13.8, 22.5};
+		double[] rangeDrytoWet = new double[] {4.5, 12.5, 27.5};
 
 		diff=dryBulbTemp-wetBulbTemp;						//			DIF=DRY-WET
         for(int i = 0; i < 3; i++) 							//			For I = 1 to 3 Do
         {
-        	tempInt=i;
         	if(diff <= rangeDrytoWet[i])					//				If DIF <= C(I) Then
         	{
+            	tempInt = i;
         		break;										//					Exit for
-        	}
-        	else
-        	{
-        		tempInt++;									
         	}												//				End If
         }													//			Next
 
@@ -185,4 +174,22 @@ public class FireDanger {
         return value;
 	}
 	
+	public static double findDryingFactor(double fineFuelMoisture) {
+		double value = 0;
+		int tempInt = 5;
+		double[] D = new double[] {16.0, 10.0, 7.0, 5.0, 4.0, 3.0};
+
+        for(int i = 0; i < 6; i++)
+        {
+        	if(fineFuelMoisture > D[i])
+        	{
+        		tempInt = i - 1;
+        		break;
+        	}
+        }
+
+        value = tempInt;	 	
+
+        return value;
+	}
 }
