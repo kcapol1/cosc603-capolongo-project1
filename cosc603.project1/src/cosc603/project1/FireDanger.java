@@ -15,7 +15,7 @@ public class FireDanger {
 		double wetBulbTemperature = 50.0;
 //		int ISNOW = 1;
   		int ISNOW = 0;
-		double WIND = 14;
+		double windSpeed = 14;
 		double IHERB = 1;	// The current herb state of the district
 //		double IHERB = 2;
 //		double IHERB = 3;
@@ -62,10 +62,10 @@ public class FireDanger {
             adjustedFuelMoisture = 0.9 * fineFuelMoisture + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
             
             // Calculate Grass Spread Index
-            grassSpreadIndex = computeSpreadIndex(WIND,fineFuelMoisture);
+            grassSpreadIndex = computeSpreadIndex(windSpeed,fineFuelMoisture);
 
             // Calculate Timber Spread Index
-            timberSpreadIndex = computeSpreadIndex(WIND,adjustedFuelMoisture);
+            timberSpreadIndex = computeSpreadIndex(windSpeed,adjustedFuelMoisture);
             
             // Calculate Fire Danger Rating
             fireLoadRating = computeFireDangerIndex(timberSpreadIndex);
@@ -142,19 +142,19 @@ public class FireDanger {
         return value;
 	}
 	
-	private static double computeSpreadIndex(double wind,double fuelMoisture) {
+	private static double computeSpreadIndex(double windSpeed,double fuelMoisture) {
 		double value = 0;
 		
         // Check if Fuel Moisture is greater than thirty percent
 		if(fuelMoisture < 30 )
 		{
-			if(wind < 14 )
+			if(windSpeed < 14 )
 			{
-				value = .01312*(wind+6.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
+				value = .01312*(windSpeed+6.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
 			}
 			else
 			{
-				value = .00918*(wind+14.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
+				value = .00918*(windSpeed+14.) * Math.pow(33.-fuelMoisture,1.65) -3.0;
 			}
 			if(value < 1 )
 			{
