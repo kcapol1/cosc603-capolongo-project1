@@ -2,10 +2,10 @@ package cosc603.project1;
 
 public class FireDanger {
 
-	private	static double buildupIndex = 3.0;
-	private	static double fineFuelMoisture = 99.0;
-	private	static double adjustedFuelMoisture = 99.0;
-	private	static double precipitation = 0.1;
+	private	static double buildupIndex_ = 3.0;
+	private	static double fineFuelMoisture_ = 99.0;
+	private	static double adjustedFuelMoisture_ = 99.0;
+	private	static double precipitation_ = 0.1;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -31,7 +31,7 @@ public class FireDanger {
 			grassSpreadIndex = 0;
 			timberSpreadIndex = 0;
 			
-	        // Adjust Buildup Index for precipitation
+	        // Adjust Buildup Index for precipitation_
 			adjustBuldupIndex();
 		} 
 		else
@@ -44,28 +44,28 @@ public class FireDanger {
 	        dryingFactor = findDryingFactor();
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
-	        fineFuelMoisture = fineFuelMoisture + (districtHerbState - 1.0) * 5.0;				
+	        fineFuelMoisture_ = fineFuelMoisture_ + (districtHerbState - 1.0) * 5.0;				
 		
             // Set Fine Fuel Moisture to one (1) if less than one
-            if(fineFuelMoisture <= 1)
+            if(fineFuelMoisture_ <= 1)
 	        {
-            	fineFuelMoisture = 1;
+            	fineFuelMoisture_ = 1;
 	        }
             
-            // Adjust Buildup Index for precipitation before adding to Drying Factor
+            // Adjust Buildup Index for precipitation_ before adding to Drying Factor
 			adjustBuldupIndex();
             
             // Add Drying Factor to Buildup Index
-            buildupIndex = buildupIndex + dryingFactor;
+            buildupIndex_ = buildupIndex_ + dryingFactor;
 
             // Calculate Adjusted Fuel Moisture for heavy fuels
-            adjustedFuelMoisture = 0.9 * fineFuelMoisture + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
+            adjustedFuelMoisture_ = 0.9 * fineFuelMoisture_ + 0.5 + 9.5 * Math.exp(-buildupIndex_/50.0);
             
             // Calculate Grass Spread Index
-            grassSpreadIndex = computeSpreadIndex(windSpeed,fineFuelMoisture);
+            grassSpreadIndex = computeSpreadIndex(windSpeed,fineFuelMoisture_);
 
             // Calculate Timber Spread Index
-            timberSpreadIndex = computeSpreadIndex(windSpeed,adjustedFuelMoisture);
+            timberSpreadIndex = computeSpreadIndex(windSpeed,adjustedFuelMoisture_);
             
             // Calculate Fire Danger Rating
             fireLoadRating = computeFireDangerIndex(timberSpreadIndex);
@@ -73,10 +73,10 @@ public class FireDanger {
 
 
         System.out.println();
-        System.out.format("Fine Fuel Moisture = %-10.3f%n",fineFuelMoisture);
-        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",adjustedFuelMoisture);
+        System.out.format("Fine Fuel Moisture = %-10.3f%n",fineFuelMoisture_);
+        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",adjustedFuelMoisture_);
         System.out.format("Drying Factor = %-10.3f%n",dryingFactor);
-        System.out.format("Buildup Index = %-10.3f%n",buildupIndex);
+        System.out.format("Buildup Index = %-10.3f%n",buildupIndex_);
         System.out.format("Grass Spread Index = %-10.3f%n",grassSpreadIndex);
         System.out.format("Timber Spread Index = %-10.3f%n",timberSpreadIndex);
         System.out.format("Fire Load Rating = %-10.3f%n",fireLoadRating);
@@ -85,13 +85,13 @@ public class FireDanger {
 
 
 	private static void adjustBuldupIndex() {
-		// Adjust Buildup Index for precipitation
-       if(precipitation > 0.1)
-        {						//		BUO=-50.*ALOG(    1.-(1. - EXP(-BUO/50.) ) * EXP(-1.175*(precipitation-.1) ) )
-        	buildupIndex = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (buildupIndex/50.0)) * Math.exp( -1.175 * (precipitation - 0.1))));
+		// Adjust Buildup Index for precipitation_
+       if(precipitation_ > 0.1)
+        {						//		BUO=-50.*ALOG(    1.-(1. - EXP(-BUO/50.) ) * EXP(-1.175*(precipitation_-.1) ) )
+        	buildupIndex_ = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (buildupIndex_/50.0)) * Math.exp( -1.175 * (precipitation_ - 0.1))));
         	//		If BUO < 0 then BUI = 0		
-        	if(buildupIndex < 0) {
-        		buildupIndex = 0;
+        	if(buildupIndex_ < 0) {
+        		buildupIndex_ = 0;
         	}
         }
 	}
@@ -103,7 +103,7 @@ public class FireDanger {
 		double[] B = new double[] {30.0, 19.2, 13.8, 22.5};
 		double[] rangeDrytoWet = new double[] {4.5, 12.5, 27.5};
 
-		diff=dryBulbTemp-wetBulbTemp;						//			DIF=dryBulbTemperature-wetBulbTemperature
+		diff = dryBulbTemp-wetBulbTemp;						//			DIF=dryBulbTemperature-wetBulbTemperature
 
 		for(int i = 0; i < 3; i++) 							//			For I = 1 to 3 Do
         {
@@ -114,11 +114,11 @@ public class FireDanger {
         	}												//				End If
         }													//			Next
 
-		fineFuelMoisture = B[tempInt] * Math.exp(A[tempInt] * diff);	//		FFM=B(I)*EXP (A(I)*DIF) 	
+		fineFuelMoisture_ = B[tempInt] * Math.exp(A[tempInt] * diff);	//		FFM=B(I)*EXP (A(I)*DIF) 	
 
-        if(fineFuelMoisture < 1)										//			If FFM < 1 Then
+        if(fineFuelMoisture_ < 1)										//			If FFM < 1 Then
         {
-        	fineFuelMoisture = 1;										//				FFM = 1
+        	fineFuelMoisture_ = 1;										//				FFM = 1
         }													//			End If
 
 	}
@@ -130,7 +130,7 @@ public class FireDanger {
 
         for(int i = 0; i < 6; i++)
         {
-        	if(fineFuelMoisture > D[i])
+        	if(fineFuelMoisture_ > D[i])
         	{
         		tempInt = i - 1;
         		break;
@@ -176,10 +176,10 @@ public class FireDanger {
 	private static double computeFireDangerIndex(double timberSpreadIndex) {
 		double value = 0;
 		// Check if either Timber Spread Index or Buildup Index are zero
-		if((timberSpreadIndex > 0) && (buildupIndex > 0))
+		if((timberSpreadIndex > 0) && (buildupIndex_ > 0))
         {
     		//				fireLoadRating = 1.75*ALOG10 (timberSpreadIndex) + .32*ALOG10( BUO ) – 1.640
-        	value = 1.75 * Math.log10(timberSpreadIndex) + 0.32 * Math.log10(buildupIndex ) - 1.640;	
+        	value = 1.75 * Math.log10(timberSpreadIndex) + 0.32 * Math.log10(buildupIndex_ ) - 1.640;	
         	if(value > 0 )
         	{
         		value =	Math.pow(10.0,value);
