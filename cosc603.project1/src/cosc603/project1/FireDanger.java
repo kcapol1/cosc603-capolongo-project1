@@ -20,24 +20,27 @@ public class FireDanger {
 //		double IHERB = 3;
 		double DF = 0;
 		double FFM = 99;
-		double ADMF = 99;
-		double GRASS = 0;
-		double TIMBER = 0;
+		double ADFM = 99;
+		double GRASS = 5;
+		double TIMBER = 10;
 		double FLOAD = 0;
 
-		if(ISNOW > 0)										//		If ISNOW > 0 Then
-		{	
-			GRASS = 0;										//			GRASS=0
-			TIMBER = 0;										//			TIMBER=0
-			if(PRECIP > 0.1)								//			If PRECIP > 0.1 then 
-			{	
-															//				BUO=-50.*ALOG(1.-(1.-EXP (-BUO/50.))*EXP (-1.175*(PRECIP-.1)))
-				BUO = adjustBuldupIndex(BUO,PRECIP);		//				If BUO < 0 then BUI = 0
+		// Check if snow is present
 
-			}												//			End If
+		if(ISNOW > 0)
+		{ 	/* There is snow on the ground.  Set the Timber and Grass indexes to zero (0)  */
+			GRASS = 0;
+			TIMBER = 0;
+			
+	        // Adjust Buildup Index for precipitation before adding to Drying Factor
+			if(PRECIP > 0.1) 
+			{	
+            	// Adjust Buildup Index
+				BUO = adjustBuldupIndex(BUO,PRECIP);
+			}
 		} 
-		else												//		Else
-		{/* No show on the ground so compute spread indexes and fire load */
+		else
+		{ 	/* No show on the ground so compute spread indexes and fire load */
 
 			// Calculate Fine Fuel Moisture
 			FFM = computeFineFuelMoisture(DRY,WET);
@@ -53,17 +56,23 @@ public class FireDanger {
 	        {
 	        	FFM = 1;
 	        }
-	        
-            if(PRECIP > 0.1)								//			If PRECIP > 0.1 then
+            
+            // Adjust Buildup Index for precipitation before adding to Drying Factor
+            if(PRECIP > 0.1)
             {				
-            												//				BUO=-50.*ALOG(1.-(1.-EXP (-BUI/50.))*EXP (-1.175*(PRECIP-.1)))
-															//				If BUO < 0 Then
-															//					BUO = 0
-            	BUO = adjustBuldupIndex(BUO,PRECIP);		//				End If
-            }												//			End If
-            												
-            BUO = BUO + DF												//			BUO = BUO + DF
-															//			ADFM = .9*FFM + .5 + 9.5*EXP ( -BUO/50.)
+            	// Adjust Buildup Index
+            	BUO = adjustBuldupIndex(BUO,PRECIP);
+            }
+            
+            // Add Drying Factor to Buildup Index
+            BUO = BUO + DF;
+
+            // Calculate Adjusted Fuel Moisture for heavy fuels
+            ADFM = 0.9 * FFM + 0.5 + 9.5 * Math.exp(-BUO/50.0);
+            
+            // Check if fuel moistures are greater than thirty percent
+            
+            		
 															//
 															//			If ADFM < 30 Then 
 															//				If WIND < 14 Then 			(Line 19)
@@ -126,6 +135,7 @@ public class FireDanger {
 
         System.out.println();
         System.out.format("Fine Fuel Moisture = %-10.3f%n",FFM);
+        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",ADFM);
         System.out.format("Drying Factor = %-10.3f%n",DF);
         System.out.format("Buildup Index = %-10.3f%n",BUO);
         
