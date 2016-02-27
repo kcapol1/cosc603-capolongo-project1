@@ -54,13 +54,15 @@ public class FireDanger {
 	        	FFM = 1;
 	        }
 	        
-	        												//			If PRECIP > 0.1 then
-															//				BUO=-50.*ALOG(1.-(1.-EXP (-BUI/50.))*EXP (-1.175*(PRECIP-.1)))
+            if(PRECIP > 0.1)								//			If PRECIP > 0.1 then
+            {				
+            												//				BUO=-50.*ALOG(1.-(1.-EXP (-BUI/50.))*EXP (-1.175*(PRECIP-.1)))
 															//				If BUO < 0 Then
 															//					BUO = 0
-															//				End If
-															//			End If
-															//			BUO = BUO + DF
+            	BUO = adjustBuldupIndex(BUO,PRECIP);		//				End If
+            }												//			End If
+            												
+            												//			BUO = BUO + DF
 															//			ADFM = .9*FFM + .5 + 9.5*EXP ( -BUO/50.)
 															//
 															//			If ADFM < 30 Then 
