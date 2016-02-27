@@ -10,7 +10,7 @@ public class FireDanger {
 		
 //		Initialize
 		double dryBulbTemperature = 78.0;
-		double WET = 50.0;
+		double wetBulbTemperature = 50.0;
 //		int ISNOW = 1;
   		int ISNOW = 0;
 //		double PRECIP = 0.5;
@@ -44,7 +44,7 @@ public class FireDanger {
 		{ 	/* No show on the ground so compute spread indexes and fire load */
 
 			// Calculate Fine Fuel Moisture
-			computeFineFuelMoisture(dryBulbTemperature,WET);
+			computeFineFuelMoisture(dryBulbTemperature,wetBulbTemperature);
 
             // Find Drying Factor in table
 	        DF = findDryingFactor();
@@ -110,7 +110,7 @@ public class FireDanger {
 		double[] B = new double[] {30.0, 19.2, 13.8, 22.5};
 		double[] rangeDrytoWet = new double[] {4.5, 12.5, 27.5};
 
-		diff=dryBulbTemp-wetBulbTemp;						//			DIF=dryBulbTemperature-WET
+		diff=dryBulbTemp-wetBulbTemp;						//			DIF=dryBulbTemperature-wetBulbTemperature
 
 		for(int i = 0; i < 3; i++) 							//			For I = 1 to 3 Do
         {
