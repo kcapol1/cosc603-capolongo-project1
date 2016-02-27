@@ -4,6 +4,7 @@ public class FireDanger {
 
 	private	static double buildupIndex = 3.0;
 	private	static double fineFuelMoisture = 99.0;
+	private	static double adjustedFuelMoisture = 99.0;
 	private	static double precipitation = 0.1;
 
 	public static void main(String[] args) {
@@ -19,8 +20,6 @@ public class FireDanger {
 //		double IHERB = 2;
 //		double IHERB = 3;
 		double DF = 0;
-		double FFM = 99;
-		double ADFM = 99;
 		double GRASS = 5;
 		double TIMBER = 10;
 		double FLOAD = 0;
@@ -59,13 +58,13 @@ public class FireDanger {
             buildupIndex = buildupIndex + DF;
 
             // Calculate Adjusted Fuel Moisture for heavy fuels
-            ADFM = 0.9 * fineFuelMoisture + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
+            adjustedFuelMoisture = 0.9 * fineFuelMoisture + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
             
             // Calculate Grass Spread Index
             GRASS = computeSpreadIndex(WIND,fineFuelMoisture);
 
             // Calculate Timber Spread Index
-            TIMBER = computeSpreadIndex(WIND,ADFM);
+            TIMBER = computeSpreadIndex(WIND,adjustedFuelMoisture);
             
             // Calculate Fire Danger Rating
             FLOAD = computeFireDangerIndex(TIMBER);
@@ -74,7 +73,7 @@ public class FireDanger {
 
         System.out.println();
         System.out.format("Fine Fuel Moisture = %-10.3f%n",fineFuelMoisture);
-        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",ADFM);
+        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",adjustedFuelMoisture);
         System.out.format("Drying Factor = %-10.3f%n",DF);
         System.out.format("Buildup Index = %-10.3f%n",buildupIndex);
         System.out.format("Grass Spread Index = %-10.3f%n",GRASS);
