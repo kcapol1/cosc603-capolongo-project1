@@ -180,7 +180,7 @@ public class FireDanger {
 		return value;
 	}
 	
-	public static double computeFireDangerIndex(double timberSpreadIndex) {
+	private static double computeFireDangerIndex(double timberSpreadIndex) {
 		double value = 0;
 		// Check if either Timber Spread Index or Buildup Index are zero
 		if((timberSpreadIndex > 0) && (buildupIndex > 0))
