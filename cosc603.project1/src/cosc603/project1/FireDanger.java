@@ -20,7 +20,7 @@ public class FireDanger {
 //		double IHERB = 2;
 //		double IHERB = 3;
 		double DF = 0;
-		double GRASS = 5;
+		double grassSpreadIndex = 5;
 		double TIMBER = 10;
 		double FLOAD = 0;
 
@@ -28,8 +28,9 @@ public class FireDanger {
 
 		if(ISNOW > 0)
 		{ 	/* There is snow on the ground.  Set the Timber and Grass indexes to zero (0)  */
-			GRASS = 0;
+			grassSpreadIndex = 0;
 			TIMBER = 0;
+			
 	        // Adjust Buildup Index for precipitation
 			adjustBuldupIndex();
 		} 
@@ -61,7 +62,7 @@ public class FireDanger {
             adjustedFuelMoisture = 0.9 * fineFuelMoisture + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
             
             // Calculate Grass Spread Index
-            GRASS = computeSpreadIndex(WIND,fineFuelMoisture);
+            grassSpreadIndex = computeSpreadIndex(WIND,fineFuelMoisture);
 
             // Calculate Timber Spread Index
             TIMBER = computeSpreadIndex(WIND,adjustedFuelMoisture);
@@ -76,7 +77,7 @@ public class FireDanger {
         System.out.format("Adjusted Fuel Moisture = %-10.3f%n",adjustedFuelMoisture);
         System.out.format("Drying Factor = %-10.3f%n",DF);
         System.out.format("Buildup Index = %-10.3f%n",buildupIndex);
-        System.out.format("Grass Spread Index = %-10.3f%n",GRASS);
+        System.out.format("Grass Spread Index = %-10.3f%n",grassSpreadIndex);
         System.out.format("Timber Spread Index = %-10.3f%n",TIMBER);
         System.out.format("Fire Load Rating = %-10.3f%n",FLOAD);
         
