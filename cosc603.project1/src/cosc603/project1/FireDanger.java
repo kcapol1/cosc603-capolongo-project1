@@ -71,54 +71,62 @@ public class FireDanger {
             ADFM = 0.9 * FFM + 0.5 + 9.5 * Math.exp(-BUO/50.0);
             
             // Check if fuel moistures are greater than thirty percent
-            if(ADFM < 30 )									//			If ADFM < 30 Then
+            if(ADFM < 30 )												//			If ADFM < 30 Then
             {				
-															//				If WIND < 14 Then 			(Line 19)
-															//					TIMBER = .01312*(WIND+6.) * (33.-ADFM**1.65 – 3.
-															//					GRASS = .01312*(WIND+6.) * (33.-FFM**1.65 – 3.
-															//					If TIMBER < 1 Then
-															//						TIMBER=1
-															//						If GRASS < 1 Then
-															//							GRASS =1
-															//						End If
-															//					End If
-															//				Else
-															//					TIMBER = .00918*(WIND+14.) * (33.-ADFM)**1.65 – 3.
-															//					GRASS = .00918*(WIND+14.) * (33.-FFM)**1.65 – 3.
-															//					If GRASS > 99 Then
-															//						GRASS =99
-															//					End If
-															//					If TIMBER > 99 Then
-															//						TIMBER =99
-															//					End If
-            }												//				End If
-            else											//			Else
+            	if(WIND < 14 )											//				If WIND < 14 Then 			(Line 19)
+            	{
+            		TIMBER = computeTimberSpreadIndex(WIND,ADFM);		//					TIMBER = .01312*(WIND+6.) * (33.-ADFM**1.65 – 3.
+            		GRASS = .01312*(WIND+6.) * Math.pow(33.-FFM,1.65) - 3.0;	//					GRASS = .01312*(WIND+6.) * (33.-FFM**1.65 – 3.
+																		//					If TIMBER < 1 Then
+																		//						TIMBER=1
+																		//						If GRASS < 1 Then
+																		//							GRASS =1
+																		//						End If
+																		//					End If
+		            	}
+            	else													//				Else
+            	{
+			            												//					TIMBER = .00918*(WIND+14.) * (33.-ADFM)**1.65 – 3.
+																		//					GRASS = .00918*(WIND+14.) * (33.-FFM)**1.65 – 3.
+																		//					If GRASS > 99 Then
+																		//						GRASS =99
+																		//					End If
+																		//					If TIMBER > 99 Then
+																		//						TIMBER =99
+            	}														//					End If
+            }															//				End If
+            else														//			Else
             {											
-            												//				If FFM < 30 Then			(Line 16)
-															//					TIMBER=1			(Line 18)
-															//					If WIND < 14 Then
-															//						GRASS = .01312*(WIND+6.) * (33.-FFM)**1.65 – 3.
-															//						If TIMBER < 1 Then
-															//							TIMBER=1
-															//						End If
-															//						If GRASS < 1 Then
-															//							GRASS =1
-															//						End If
-															//					Else
-															//						GRASS = .00918*(WIND+14.) * (33.-FFM)**1.65 – 3.
-															//						If GRASS > 99 Then
-															//							GRASS =99
-															//						End If
-															//						If TIMBER > 99 Then
-															//							TIMBER =99
-															//						End If
-															//					End If
-															//				Else
-															//					GRASS =1
-															//					TIMBER=1
-															//				End If
-            }												//			End If
-															//			
+            	if(FFM < 30 )											//				If FFM < 30 Then			(Line 16)
+            	{
+            		TIMBER=1;											//					TIMBER=1			(Line 18)
+            		if(WIND < 14 )										//					If WIND < 14 Then
+            		{
+            															//						GRASS = .01312*(WIND+6.) * (33.-FFM)**1.65 – 3.
+																		//						If TIMBER < 1 Then
+																		//							TIMBER=1
+																		//						End If
+																		//						If GRASS < 1 Then
+																		//							GRASS =1
+																		//						End If
+            		}
+            		else												//					Else
+            		{
+            															//						GRASS = .00918*(WIND+14.) * (33.-FFM)**1.65 – 3.
+																		//						If GRASS > 99 Then
+																		//							GRASS =99
+																		//						End If
+																		//						If TIMBER > 99 Then
+																		//							TIMBER =99
+            		}													//						End If
+            	}														//					End If
+            	else            										//				Else
+            	{
+            															//					GRASS =1
+																		//					TIMBER=1
+            	}														//				End If
+            }															//			End If
+																		//			
 
             
             // Calculate Fire Danger Rating
@@ -145,6 +153,7 @@ public class FireDanger {
         System.out.format("Adjusted Fuel Moisture = %-10.3f%n",ADFM);
         System.out.format("Drying Factor = %-10.3f%n",DF);
         System.out.format("Buildup Index = %-10.3f%n",BUO);
+        System.out.format("Timber Spread Index = %-10.3f%n",TIMBER);
         System.out.format("Fire Load Rating = %-10.3f%n",FLOAD);
         
 	}
@@ -172,7 +181,8 @@ public class FireDanger {
 		double[] rangeDrytoWet = new double[] {4.5, 12.5, 27.5};
 
 		diff=dryBulbTemp-wetBulbTemp;						//			DIF=DRY-WET
-        for(int i = 0; i < 3; i++) 							//			For I = 1 to 3 Do
+
+		for(int i = 0; i < 3; i++) 							//			For I = 1 to 3 Do
         {
         	if(diff <= rangeDrytoWet[i])					//				If DIF <= C(I) Then
         	{
@@ -208,5 +218,26 @@ public class FireDanger {
         value = tempInt;	 	
 
         return value;
+	}
+	public static double computeTimberSpreadIndex(double wind,double adjustedFuelMoisture) {
+		double value = 0;
+		if(wind < 14 )
+		{
+			value = .01312*(wind+6.) * Math.pow(33.-adjustedFuelMoisture,1.65) -3.0;
+		}
+		else
+		{
+			value = .00918*(wind+14.) * Math.pow(33.-adjustedFuelMoisture,1.65) -3.0;
+		}
+		if(value < 1 )
+		{
+			value = 1;
+		}
+		if(value > 99 )
+		{
+			value = 99;
+		}
+		
+		return value;
 	}
 }
