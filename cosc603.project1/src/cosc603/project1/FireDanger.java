@@ -4,6 +4,7 @@ public class FireDanger {
 
 	private	static double buildupIndex = 3.0;
 	private	static double fineFuelMoisture = 99.0;
+	private	static double precipitation = 0.1;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -13,8 +14,6 @@ public class FireDanger {
 		double wetBulbTemperature = 50.0;
 //		int ISNOW = 1;
   		int ISNOW = 0;
-//		double precipitation = 0.5;
-		double precipitation = 0.1;
 		double WIND = 14;
 		double IHERB = 1;	// The current herb state of the district
 //		double IHERB = 2;
@@ -32,13 +31,8 @@ public class FireDanger {
 		{ 	/* There is snow on the ground.  Set the Timber and Grass indexes to zero (0)  */
 			GRASS = 0;
 			TIMBER = 0;
-			
-	        // Adjust Buildup Index for precipitation before adding to Drying Factor
-			if(precipitation > 0.1) 
-			{	
-            	// Adjust Buildup Index
-				adjustBuldupIndex(precipitation);
-			}
+	        // Adjust Buildup Index for precipitation
+			adjustBuldupIndex();
 		} 
 		else
 		{ 	/* No show on the ground so compute spread indexes and fire load */
@@ -59,11 +53,7 @@ public class FireDanger {
 	        }
             
             // Adjust Buildup Index for precipitation before adding to Drying Factor
-            if(precipitation > 0.1)
-            {				
-            	// Adjust Buildup Index
-				adjustBuldupIndex(precipitation);
-            }
+			adjustBuldupIndex();
             
             // Add Drying Factor to Buildup Index
             buildupIndex = buildupIndex + DF;
@@ -94,13 +84,16 @@ public class FireDanger {
 	}
 
 
-	private static void adjustBuldupIndex(double precipitation) {
-		//		BUO=-50.*ALOG(    1.-(1. - EXP(-BUO/50.) ) * EXP(-1.175*(precipitation-.1) ) )
-		buildupIndex = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (buildupIndex/50.0)) * Math.exp( -1.175 * (precipitation - 0.1))));
-		//		If BUO < 0 then BUI = 0		
-		if(buildupIndex < 0) {
-			buildupIndex = 0;
-		}
+	private static void adjustBuldupIndex() {
+		// Adjust Buildup Index for precipitation
+       if(precipitation > 0.1)
+        {						//		BUO=-50.*ALOG(    1.-(1. - EXP(-BUO/50.) ) * EXP(-1.175*(precipitation-.1) ) )
+        	buildupIndex = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (buildupIndex/50.0)) * Math.exp( -1.175 * (precipitation - 0.1))));
+        	//		If BUO < 0 then BUI = 0		
+        	if(buildupIndex < 0) {
+        		buildupIndex = 0;
+        	}
+        }
 	}
 	
 	private static void computeFineFuelMoisture(double dryBulbTemp,double wetBulbTemp) {
