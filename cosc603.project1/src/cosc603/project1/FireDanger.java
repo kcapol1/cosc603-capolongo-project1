@@ -2,6 +2,7 @@ package cosc603.project1;
 
 public class FireDanger {
 
+	private	static double buildupIndex = 3;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -14,7 +15,6 @@ public class FireDanger {
 		double PRECIP = 0.5;
 //		double PRECIP = 0.1;
 		double WIND = 14;
-		double BUO = 3;
 		double IHERB = 1;	// The current herb state of the district
 //		double IHERB = 2;
 //		double IHERB = 3;
@@ -36,7 +36,7 @@ public class FireDanger {
 			if(PRECIP > 0.1) 
 			{	
             	// Adjust Buildup Index
-				BUO = adjustBuldupIndex(BUO,PRECIP);
+				adjustBuldupIndex(PRECIP);
 			}
 		} 
 		else
@@ -61,14 +61,14 @@ public class FireDanger {
             if(PRECIP > 0.1)
             {				
             	// Adjust Buildup Index
-            	BUO = adjustBuldupIndex(BUO,PRECIP);
+				adjustBuldupIndex(PRECIP);
             }
             
             // Add Drying Factor to Buildup Index
-            BUO = BUO + DF;
+            buildupIndex = buildupIndex + DF;
 
             // Calculate Adjusted Fuel Moisture for heavy fuels
-            ADFM = 0.9 * FFM + 0.5 + 9.5 * Math.exp(-BUO/50.0);
+            ADFM = 0.9 * FFM + 0.5 + 9.5 * Math.exp(-buildupIndex/50.0);
             
             // Calculate Grass Spread Index
             GRASS = computeSpreadIndex(WIND,FFM);
@@ -77,7 +77,7 @@ public class FireDanger {
             TIMBER = computeSpreadIndex(WIND,ADFM);
             
             // Calculate Fire Danger Rating
-            FLOAD = computeFireDangerIndex(TIMBER,BUO);
+            FLOAD = computeFireDangerIndex(TIMBER);
 		}
 
 
@@ -85,7 +85,7 @@ public class FireDanger {
         System.out.format("Fine Fuel Moisture = %-10.3f%n",FFM);
         System.out.format("Adjusted Fuel Moisture = %-10.3f%n",ADFM);
         System.out.format("Drying Factor = %-10.3f%n",DF);
-        System.out.format("Buildup Index = %-10.3f%n",BUO);
+        System.out.format("Buildup Index = %-10.3f%n",buildupIndex);
         System.out.format("Grass Spread Index = %-10.3f%n",GRASS);
         System.out.format("Timber Spread Index = %-10.3f%n",TIMBER);
         System.out.format("Fire Load Rating = %-10.3f%n",FLOAD);
@@ -93,17 +93,13 @@ public class FireDanger {
 	}
 
 
-	public static double adjustBuldupIndex(double buldupIndex,double precipitation) {
-		double value;
-
+	private static void adjustBuldupIndex(double precipitation) {
 		//		BUO=-50.*ALOG(    1.-(1. - EXP(-BUO/50.) ) * EXP(-1.175*(PRECIP-.1) ) )
-		value = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (buldupIndex/50.0)) * Math.exp( -1.175 * (precipitation - 0.1))));
-
+		buildupIndex = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (buildupIndex/50.0)) * Math.exp( -1.175 * (precipitation - 0.1))));
 		//		If BUO < 0 then BUI = 0		
-		if(value < 0) {
-			value = 0;
+		if(buildupIndex < 0) {
+			buildupIndex = 0;
 		}
-		return value;
 	}
 	
 	public static double computeFineFuelMoisture(double dryBulbTemp,double wetBulbTemp) {
@@ -185,7 +181,7 @@ public class FireDanger {
 		return value;
 	}
 	
-	public static double computeFireDangerIndex(double timberSpreadIndex,double buildupIndex) {
+	public static double computeFireDangerIndex(double timberSpreadIndex) {
 		double value = 0;
 		// Check if either Timber Spread Index or Buildup Index are zero
 		if((timberSpreadIndex > 0) && (buildupIndex > 0))
