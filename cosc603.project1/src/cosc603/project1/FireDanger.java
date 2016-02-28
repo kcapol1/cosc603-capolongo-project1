@@ -7,6 +7,7 @@ public class FireDanger {
 	private	static double adjustedFuelMoisture_ = 99.0;
 	private	static double precipitation_ = 0.1;
 	private	static double districtHerbState_ = 1;	// The current herb state of the district
+	private static boolean isSnowPresent_ = false;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -14,7 +15,6 @@ public class FireDanger {
 //		Initialize
 		double dryBulbTemperature = 78.0;
 		double wetBulbTemperature = 50.0;
-  		boolean isSnowPresent = false;
 		double windSpeed = 14;
 		double dryingFactor = 0;
 		double grassSpreadIndex = 5;
@@ -23,7 +23,7 @@ public class FireDanger {
 
 		// Check if snow is present
 
-		if(isSnowPresent)
+		if(isSnowPresent_)
 		{ 	/* There is snow on the ground.  Set the Timber and Grass indexes to zero (0)  */
 			grassSpreadIndex = 0;
 			timberSpreadIndex = 0;
