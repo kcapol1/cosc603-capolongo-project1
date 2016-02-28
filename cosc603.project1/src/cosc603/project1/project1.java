@@ -1,5 +1,5 @@
 package cosc603.project1;
-
+import cosc603.project1.FireDangerRatings;
 /**
  * @author Ken Capolongo
  *
@@ -22,7 +22,8 @@ public class project1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		FireDangerRatings fireDangerRatings = new FireDangerRatings(78.0,50.0,false,0.1,14,1,3.0);
+
 //		Initialize
 		double wetBulbTemperature = 50.0;
 		double windSpeed = 14;
