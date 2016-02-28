@@ -1,7 +1,18 @@
 package cosc603.project1;
 
+/**
+ * @author Ken Capolongo
+ *
+ */
+
 public class FireDanger {
 
+	
+	
+	/**
+	 * Inputs
+	 */
+	private static double dryBulbTemperature_ = 78.0;
 	private	static double buildupIndex_ = 3.0;
 	private	static double fineFuelMoisture_ = 99.0;
 	private	static double adjustedFuelMoisture_ = 99.0;
@@ -13,7 +24,6 @@ public class FireDanger {
 		// TODO Auto-generated method stub
 		
 //		Initialize
-		double dryBulbTemperature = 78.0;
 		double wetBulbTemperature = 50.0;
 		double windSpeed = 14;
 		double dryingFactor = 0;
@@ -35,7 +45,7 @@ public class FireDanger {
 		{ 	/* No show on the ground so compute spread indexes and fire load */
 
 			// Calculate Fine Fuel Moisture
-			computeFineFuelMoisture(dryBulbTemperature,wetBulbTemperature);
+			computeFineFuelMoisture(dryBulbTemperature_,wetBulbTemperature);
 
             // Find Drying Factor in table
 	        dryingFactor = findDryingFactor();
