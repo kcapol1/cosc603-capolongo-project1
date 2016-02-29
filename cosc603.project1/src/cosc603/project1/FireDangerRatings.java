@@ -252,7 +252,7 @@ public class FireDangerRatings {
 	 */
 	private static int findDryingFactor() {
 		int tempInt = 5;
-		double[] D = new double[] {16.0, 10.0, 7.0, 5.0, 4.0, 3.0};
+		final double D [] = {16.0, 10.0, 7.0, 5.0, 4.0, 3.0};
 
         for (int i = 0; i < 6; i++) {
         	if(FireDangerRatings.getFineFuelMoisture() > D[i]) {
