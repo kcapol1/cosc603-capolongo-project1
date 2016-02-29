@@ -202,10 +202,10 @@ public class FireDangerRatings {
 	/**
 	 * @return the Drying Factor
 	 */
-	protected static int getDryingFactor() {
+//	protected static int getDryingFactor() {
         // Find Drying Factor in table
-		return FireDangerRatings.findDryingFactor();
-	}
+//		return FireDangerRatings.findDryingFactor();
+//	}
 
 	/**
 	 * @param dryingFactor the dryingFactor_ to set
@@ -345,10 +345,10 @@ public class FireDangerRatings {
             FireDangerRatings.setFineFuelMoisture(fineFuelMoisture);
             
             // Adjust Buildup Index for precipitation_ before adding to Drying Factor
-			adjustBuldupIndex();
+            FireDangerRatings.adjustBuldupIndex();
             
             // Add Drying Factor to Buildup Index
-			buildupIndex = FireDangerRatings.getBuildupIndex() + FireDangerRatings.getDryingFactor();
+			buildupIndex = FireDangerRatings.getBuildupIndex() + FireDangerRatings.findDryingFactor();
 			FireDangerRatings.setBuildupIndex(buildupIndex);
 			
             // Calculate Adjusted Fuel Moisture for heavy fuels
