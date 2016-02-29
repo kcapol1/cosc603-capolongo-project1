@@ -322,11 +322,6 @@ public class FireDangerRatings {
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
 			fineFuelMoisture = FireDangerRatings.getFineFuelMoisture() + (FireDangerRatings.getDistrictHerbState() - 1.0) * 5.0;				
-		
-            // Set Fine Fuel Moisture to one (1) if less than one
-            if(fineFuelMoisture <= 1)
-            	fineFuelMoisture = 1;
-            
             FireDangerRatings.setFineFuelMoisture(fineFuelMoisture);
             
             // Adjust Buildup Index for precipitation_ before adding to Drying Factor
