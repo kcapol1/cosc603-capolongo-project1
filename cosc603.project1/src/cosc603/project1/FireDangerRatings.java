@@ -25,7 +25,6 @@ public class FireDangerRatings {
 	private	static double timberSpreadIndex_;
 	private	static double grassSpreadIndex_;
 	private	static double fineFuelMoisture_;
-//	private	static double dryingFactor_;	
 
 
 
@@ -199,20 +198,6 @@ public class FireDangerRatings {
 		FireDangerRatings.grassSpreadIndex_ = grassSpreadIndex;
 	}
 	
-	/**
-	 * @return the Drying Factor
-	 */
-//	protected static int getDryingFactor() {
-        // Find Drying Factor in table
-//		return FireDangerRatings.findDryingFactor();
-//	}
-
-	/**
-	 * @param dryingFactor the dryingFactor_ to set
-	 */
-//	protected static void setDryingFactor(double dryingFactor) {
-//		FireDangerRatings.dryingFactor_ = dryingFactor;
-//	}
 	/**
 	 * 
 	 */
