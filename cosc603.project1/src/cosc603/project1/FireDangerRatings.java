@@ -67,6 +67,8 @@ public class FireDangerRatings {
 	 */
 	public static void setDryBulbTemperature(double dryBulbTemperature) {
 		FireDangerRatings.dryBulbTemperature_ = dryBulbTemperature;
+		// Calculate Fine Fuel Moisture
+		FireDangerRatings.computeFineFuelMoisture();
 	}
 
 	/**
@@ -81,6 +83,8 @@ public class FireDangerRatings {
 	 */
 	public static void setWetBulbTemperature(double wetBulbTemperature) {
 		FireDangerRatings.wetBulbTemperature_ = wetBulbTemperature;
+		// Calculate Fine Fuel Moisture
+		FireDangerRatings.computeFineFuelMoisture();
 	}
 
 	/**
@@ -329,9 +333,6 @@ public class FireDangerRatings {
 		} 
 		else { 	
 			/* No show on the ground so compute spread indexes and fire load */
-
-			// Calculate Fine Fuel Moisture
-			FireDangerRatings.computeFineFuelMoisture();
 
             // Find Drying Factor in table
 			FireDangerRatings.findDryingFactor();
