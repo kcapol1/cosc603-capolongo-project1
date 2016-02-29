@@ -225,9 +225,9 @@ public class FireDangerRatings {
 		double tempValue;
 		double diff = 0;
 		int tempInt = 3;
-		double[] A = new double[] {-0.185900, -0.85900, -0.05966, -0.07737};
-		double[] B = new double[] {30.0, 19.2, 13.8, 22.5};
-		double[] rangeDrytoWet = new double[] {4.5, 12.5, 27.5};
+		final double A [] = {-0.185900, -0.85900, -0.05966, -0.07737};
+		final double B [] = {30.0, 19.2, 13.8, 22.5};
+		final double rangeDrytoWet [] = {4.5, 12.5, 27.5};
 
 		diff = FireDangerRatings.getDryBulbTemperature() - FireDangerRatings.getWetBulbTemperature();
 
