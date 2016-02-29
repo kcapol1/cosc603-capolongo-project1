@@ -25,7 +25,7 @@ public class FireDangerRatings {
 	private	static double timberSpreadIndex_;
 	private	static double grassSpreadIndex_;
 	private	static double fineFuelMoisture_;
-	private	static double dryingFactor_;	
+//	private	static double dryingFactor_;	
 
 
 
@@ -200,18 +200,19 @@ public class FireDangerRatings {
 	}
 	
 	/**
-	 * @return the dryingFactor_
+	 * @return the Drying Factor
 	 */
-	protected static double getDryingFactor() {
-		return dryingFactor_;
+	protected static int getDryingFactor() {
+        // Find Drying Factor in table
+		return FireDangerRatings.findDryingFactor();
 	}
 
 	/**
 	 * @param dryingFactor the dryingFactor_ to set
 	 */
-	protected static void setDryingFactor(double dryingFactor) {
-		FireDangerRatings.dryingFactor_ = dryingFactor;
-	}
+//	protected static void setDryingFactor(double dryingFactor) {
+//		FireDangerRatings.dryingFactor_ = dryingFactor;
+//	}
 	/**
 	 * 
 	 */
@@ -264,7 +265,7 @@ public class FireDangerRatings {
 	/**
 	 * @return
 	 */
-	private static void findDryingFactor() {
+	private static int findDryingFactor() {
 		int tempInt = 5;
 		double[] D = new double[] {16.0, 10.0, 7.0, 5.0, 4.0, 3.0};
 
@@ -275,7 +276,7 @@ public class FireDangerRatings {
         	}
         }
 
-        FireDangerRatings.setDryingFactor(tempInt);	 	
+        return tempInt;	 	
 
 	}
 	
@@ -333,9 +334,6 @@ public class FireDangerRatings {
 		} 
 		else { 	
 			/* No show on the ground so compute spread indexes and fire load */
-
-            // Find Drying Factor in table
-			FireDangerRatings.findDryingFactor();
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
 			fineFuelMoisture = FireDangerRatings.getFineFuelMoisture() + (FireDangerRatings.getDistrictHerbState() - 1.0) * 5.0;				
