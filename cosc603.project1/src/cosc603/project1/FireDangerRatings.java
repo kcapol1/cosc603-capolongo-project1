@@ -1,5 +1,6 @@
 package cosc603.project1;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class for computing national fire danger ratings.
  * and fire load index. It computes buildup index,
@@ -9,9 +10,10 @@ package cosc603.project1;
  * of a table lookup scheme.  The computation method
  * was chosen due to memory limitations at the time
  * the original program was created.  The code was
- * listed in the research note NC-79 Computer Calculation
- * of Fire Danger, authored by William A.&nbsp; Main,
- * Forest Research Technician, US Forest Service.
+ * listed in the US Forest Service research note 
+ * NC-79 Computer Calculation of Fire Danger, 
+ * authored by William A.&nbsp; Main, Forest 
+ * Research Technician, US Forest Service.
  * 
  * 
  * @author Ken Capolongo
@@ -19,24 +21,40 @@ package cosc603.project1;
  */
 public class FireDangerRatings {
 	
-	/**
-	 * 
-	 */
+	/** The dry-bulb temperature reading. */
 	private static double dryBulbTemperature_;
+	
+	/** The wet-bulb temperature reading. */
 	private static double wetBulbTemperature_;
+	
+	/** The flag to indicate if snow is on the ground. */
 	private static boolean isSnowPresent_;
+	
+	/** The preceding 24 hour precipitation in inches. */
 	private	static double precipitation_;
+	
+	/** The current wind speed in miles per hour. */
 	private	static double windSpeed_;
+	
+	/** The current herbaceous stage of vegetation. */
 	private	static double districtHerbState_;	// The current herb state of the district
+	
+	/** The yesterday's buildup index. */
 	private	static double buildupIndex_;
+	
+	/** The timber spread index. */
 	private	static double timberSpreadIndex_;
+	
+	/** The grass spread index. */
 	private	static double grassSpreadIndex_;
+	
+	/** The fine fuel moisture. */
 	private	static double fineFuelMoisture_;
 
 
 
 	/**
-	 * Class constructor
+	 * Class constructor.
 	 */
 	public FireDangerRatings() {
 		
@@ -69,13 +87,18 @@ public class FireDangerRatings {
 
 
 	/**
-	 * @return the dry-bulb temperature reading
+	 * Gets the dry bulb temperature.
+	 *
+	 * @return dryBulbTemperature_
 	 */
 	public static double getDryBulbTemperature() {
 		return dryBulbTemperature_;
 	}
 
 	/**
+	 * Sets the dry bulb temperature.
+	 * Also calculates the fine fuel moisture 
+	 *
 	 * @param dryBulbTemperature the dryBulbTemperature_ to set
 	 */
 	public static void setDryBulbTemperature(double dryBulbTemperature) {
@@ -85,6 +108,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Gets the wet bulb temperature.
+	 *
 	 * @return the wetBulbTemperature_
 	 */
 	public static double getWetBulbTemperature() {
@@ -92,6 +117,9 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the wet bulb temperature.
+	 * Also calculates the fine fuel moisture 
+	 *
 	 * @param wetBulbTemperature the wetBulbTemperature_ to set
 	 */
 	public static void setWetBulbTemperature(double wetBulbTemperature) {
@@ -101,6 +129,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Checks if is snow present.
+	 *
 	 * @return the isSnowPresent_
 	 */
 	public static boolean isSnowPresent() {
@@ -108,6 +138,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the snow present.
+	 *
 	 * @param isSnowPresent the isSnowPresent_ to set
 	 */
 	public static void setSnowPresent(boolean isSnowPresent) {
@@ -115,6 +147,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Gets the precipitation.
+	 *
 	 * @return the precipitation_
 	 */
 	public static double getPrecipitation() {
@@ -122,6 +156,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the precipitation.
+	 *
 	 * @param precipitation the precipitation_ to set
 	 */
 	public static void setPrecipitation(double precipitation) {
@@ -129,6 +165,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Gets the wind speed.
+	 *
 	 * @return the windSpeed_
 	 */
 	public static double getWindSpeed() {
@@ -136,6 +174,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the wind speed.
+	 *
 	 * @param windSpeed the windSpeed_ to set
 	 */
 	public static void setWindSpeed(double windSpeed) {
@@ -143,6 +183,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Gets the district herb state.
+	 *
 	 * @return the districtHerbState_
 	 */
 	public static double getDistrictHerbState() {
@@ -150,6 +192,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the district herb state.
+	 *
 	 * @param districtHerbState the districtHerbState_ to set
 	 */
 	public static void setDistrictHerbState(double districtHerbState) {
@@ -157,6 +201,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Gets the buildup index.
+	 *
 	 * @return the buildupIndex_
 	 */
 	public static double getBuildupIndex() {
@@ -164,6 +210,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the buildup index.
+	 *
 	 * @param buildupIndex the buildupIndex_ to set
 	 */
 	public static void setBuildupIndex(double buildupIndex) {
@@ -171,6 +219,8 @@ public class FireDangerRatings {
 	}
 	
 	/**
+	 * Gets the fine fuel moisture.
+	 *
 	 * @return the fineFuelMoisture_
 	 */
 	protected static double getFineFuelMoisture() {
@@ -178,6 +228,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the fine fuel moisture.
+	 *
 	 * @param fineFuelMoisture the fineFuelMoisture_ to set
 	 */
 	protected static void setFineFuelMoisture(double fineFuelMoisture) {
@@ -185,6 +237,8 @@ public class FireDangerRatings {
 	}
 	
 	/**
+	 * Gets the timber spread index.
+	 *
 	 * @return the timberSpreadIndex_
 	 */
 	protected static double getTimberSpreadIndex() {
@@ -192,6 +246,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the timber spread index.
+	 *
 	 * @param timberSpreadIndex the timberSpreadIndex_ to set
 	 */
 	protected static void setTimberSpreadIndex(double timberSpreadIndex) {
@@ -199,6 +255,8 @@ public class FireDangerRatings {
 	}
 	
 	/**
+	 * Gets the grass spread index.
+	 *
 	 * @return the grassSpreadIndex_
 	 */
 	protected static double getGrassSpreadIndex() {
@@ -206,6 +264,8 @@ public class FireDangerRatings {
 	}
 
 	/**
+	 * Sets the grass spread index.
+	 *
 	 * @param grassSpreadIndex the grassSpreadIndex_ to set
 	 */
 	protected static void setGrassSpreadIndex(double grassSpreadIndex) {
@@ -213,7 +273,7 @@ public class FireDangerRatings {
 	}
 	
 	/**
-	 * 
+	 * Adjust buldup index.
 	 */
 	private static void adjustBuldupIndex() {
 		// Adjust Buildup Index for Precipitation
@@ -233,7 +293,7 @@ public class FireDangerRatings {
 	}
 	
 	/**
-	 * 
+	 * Compute fine fuel moisture.
 	 */
 	private static void computeFineFuelMoisture() {
 		double tempValue;
@@ -262,7 +322,9 @@ public class FireDangerRatings {
 	}
 	
 	/**
-	 * @return
+	 * Find drying factor.
+	 *
+	 * @return the int
 	 */
 	private static int findDryingFactor() {
 		int tempInt = 5;
@@ -280,8 +342,10 @@ public class FireDangerRatings {
 	}
 	
 	/**
-	 * @param fuelMoisture
-	 * @return
+	 * Compute spread index.
+	 *
+	 * @param fuelMoisture the fuel moisture
+	 * @return the double
 	 */
 	private static double computeSpreadIndex(double fuelMoisture) {
 		double value = 0;
@@ -312,7 +376,9 @@ public class FireDangerRatings {
 	
 
 	/**
-	 * @return
+	 * Compute fire danger index.
+	 *
+	 * @return the double
 	 */
 	public double computeFireDangerIndex() {
 		double fireLoadRating = 0;
