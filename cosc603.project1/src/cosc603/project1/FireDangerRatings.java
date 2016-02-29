@@ -1,11 +1,18 @@
-/**
- * 
- */
 package cosc603.project1;
 
 /**
- * Class for computing national fire danger ratings
- * and fire load index
+ * Class for computing national fire danger ratings.
+ * and fire load index. It computes buildup index,
+ * fire-load index, and various spread indexes.
+ * This is a rewrite of the original code, which
+ * follows an equation computation method instead
+ * of a table lookup scheme.  The computation method
+ * was chosen due to memory limitations at the time
+ * the original program was created.  The code was
+ * listed in the research note NC-79 Computer Calculation
+ * of Fire Danger, authored by William A.&nbsp; Main,
+ * Forest Research Technician, US Forest Service.
+ * 
  * 
  * @author Ken Capolongo
  *
@@ -28,18 +35,25 @@ public class FireDangerRatings {
 
 
 
+	/**
+	 * Class constructor
+	 */
 	public FireDangerRatings() {
 		
 	}
 
 	/**
-	 * @param dryBulbTemperature
-	 * @param wetBulbTemperature
-	 * @param isSnowPresent
-	 * @param precipitation
-	 * @param windSpeed
-	 * @param districtHerbState
-	 * @param buildupIndex
+	 * Class constructor initializing inputs to compute
+	 * fire danger ratings.
+	 * 
+	 * @param dryBulbTemperature  	dry-bulb temperature reading
+	 * @param wetBulbTemperature	wet-bulb temperature reading
+	 * @param isSnowPresent 		flag to indicate if snow is on the ground
+	 * @param precipitation			preceding 24 hour precipitation in inches
+	 * @param windSpeed				current wind speed in miles per hour
+	 * @param districtHerbState		current herbaceous stage of vegetation
+	 * 								1=cured, 2=transition, 3=green
+	 * @param buildupIndex			yesterday's buildup index
 	 */
 	public FireDangerRatings(double	dryBulbTemperature, double wetBulbTemperature, boolean isSnowPresent,
 			double precipitation, double windSpeed, int	districtHerbState, double buildupIndex)	{
@@ -48,14 +62,14 @@ public class FireDangerRatings {
 		setSnowPresent(isSnowPresent);
 		setPrecipitation(precipitation);
 		setWindSpeed(windSpeed);
-		setDistrictHerbState(districtHerbState);	// The current herb state of the district
+		setDistrictHerbState(districtHerbState);
 		setBuildupIndex(buildupIndex);	
 	}
 	
 
 
 	/**
-	 * @return the dryBulbTemperature_
+	 * @return the dry-bulb temperature reading
 	 */
 	public static double getDryBulbTemperature() {
 		return dryBulbTemperature_;
@@ -302,9 +316,9 @@ public class FireDangerRatings {
 	 */
 	public double computeFireDangerIndex() {
 		double fireLoadRating = 0;
-		double fineFuelMoisture = 0;
+		double fineFuelMoisture = 99;
 		double buildupIndex = 0;
-		double adjustedFuelMoisture = 0;
+		double adjustedFuelMoisture = 99;
 		double grassSpreadIndex = 0;
 		double timberSpreadIndex = 0;
 		
