@@ -19,7 +19,7 @@ public class project1 {
         System.out.println();
         System.out.format("Fine Fuel Moisture = %-10.3f%n",FireDangerRatings.getFineFuelMoisture());
 //        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",adjustedFuelMoisture_);
-        System.out.format("Drying Factor = %-10.3f%n",FireDangerRatings.getDryingFactor());
+//        System.out.format("Drying Factor = %-10.3f%n",FireDangerRatings.getDryingFactor());
         System.out.format("Buildup Index = %-10.3f%n",FireDangerRatings.getBuildupIndex());
         System.out.format("Grass Spread Index = %-10.3f%n",FireDangerRatings.getGrassSpreadIndex());
         System.out.format("Timber Spread Index = %-10.3f%n",FireDangerRatings.getTimberSpreadIndex());
