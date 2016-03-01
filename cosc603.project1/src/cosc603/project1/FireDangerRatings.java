@@ -196,7 +196,7 @@ public class FireDangerRatings {
 	 *
 	 * @param districtHerbaceousStage the districtHerbaceousStage_ to set
 	 */
-	public static void setDistrictHerbaceousStage(double districtHerbaceousStage) {
+	public void setDistrictHerbaceousStage(double districtHerbaceousStage) {
 		FireDangerRatings.districtHerbaceousStage_ = districtHerbaceousStage;
 	}
 
@@ -205,7 +205,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the buildupIndex_
 	 */
-	public static double getBuildupIndex() {
+	public double getBuildupIndex() {
 		return buildupIndex_;
 	}
 
@@ -223,7 +223,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the fineFuelMoisture_
 	 */
-	protected static double getFineFuelMoisture() {
+	protected double getFineFuelMoisture() {
 		return fineFuelMoisture_;
 	}
 
@@ -241,7 +241,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the timberSpreadIndex_
 	 */
-	protected static double getTimberSpreadIndex() {
+	protected double getTimberSpreadIndex() {
 		return timberSpreadIndex_;
 	}
 
@@ -259,7 +259,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the grassSpreadIndex_
 	 */
-	protected static double getGrassSpreadIndex() {
+	protected double getGrassSpreadIndex() {
 		return grassSpreadIndex_;
 	}
 
