@@ -101,7 +101,7 @@ public class FireDangerRatings {
 	 *
 	 * @param dryBulbTemperature the dryBulbTemperature_ to set
 	 */
-	public static void setDryBulbTemperature(double dryBulbTemperature) {
+	public void setDryBulbTemperature(double dryBulbTemperature) {
 		FireDangerRatings.dryBulbTemperature_ = dryBulbTemperature;
 		// Calculate Fine Fuel Moisture
 		FireDangerRatings.computeFineFuelMoisture();
@@ -122,7 +122,7 @@ public class FireDangerRatings {
 	 *
 	 * @param wetBulbTemperature the wetBulbTemperature_ to set
 	 */
-	public static void setWetBulbTemperature(double wetBulbTemperature) {
+	public void setWetBulbTemperature(double wetBulbTemperature) {
 		FireDangerRatings.wetBulbTemperature_ = wetBulbTemperature;
 		// Calculate Fine Fuel Moisture
 		FireDangerRatings.computeFineFuelMoisture();
@@ -142,7 +142,7 @@ public class FireDangerRatings {
 	 *
 	 * @param isSnowPresent the isSnowPresent_ to set
 	 */
-	public static void setSnowPresent(boolean isSnowPresent) {
+	public void setSnowPresent(boolean isSnowPresent) {
 		FireDangerRatings.isSnowPresent_ = isSnowPresent;
 	}
 
@@ -160,7 +160,7 @@ public class FireDangerRatings {
 	 *
 	 * @param precipitation the precipitation_ to set
 	 */
-	public static void setPrecipitation(double precipitation) {
+	public void setPrecipitation(double precipitation) {
 		FireDangerRatings.precipitation_ = precipitation;
 	}
 
@@ -178,7 +178,7 @@ public class FireDangerRatings {
 	 *
 	 * @param windSpeed the windSpeed_ to set
 	 */
-	public static void setWindSpeed(double windSpeed) {
+	public void setWindSpeed(double windSpeed) {
 		FireDangerRatings.windSpeed_ = windSpeed;
 	}
 
@@ -214,7 +214,7 @@ public class FireDangerRatings {
 	 *
 	 * @param buildupIndex the buildupIndex_ to set
 	 */
-	public static void setBuildupIndex(double buildupIndex) {
+	public void setBuildupIndex(double buildupIndex) {
 		FireDangerRatings.buildupIndex_ = buildupIndex;
 	}
 	
