@@ -96,10 +96,16 @@ public class FireDangerRatings {
 
 	
 	private static void initialize() {
+		FireDangerRatings.dryBulbTemperature_ = 70;
+		FireDangerRatings.wetBulbTemperature_ = 60;
 		FireDangerRatings.fineFuelMoisture_= 99;
 		FireDangerRatings.adjustedFuelMoisture_= 99;
 		FireDangerRatings.dryingFactor_= 0;
 		FireDangerRatings.isSnowPresent_ = false;
+		FireDangerRatings.precipitation_ = 0.1;
+		FireDangerRatings.windSpeed_ = 14;
+		FireDangerRatings.districtHerbaceousStage_ = 1;
+		FireDangerRatings.buildupIndex_ = 5;
 	}
 	
 	/**
