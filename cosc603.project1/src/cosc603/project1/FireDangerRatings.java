@@ -48,6 +48,9 @@ public class FireDangerRatings {
 	/** The fine fuel moisture. */
 	private static double fineFuelMoisture_;
 
+	/** The adjusted fuel moisture. */
+	private static double adjustedFuelMoisture_;
+
 	/** The drying factor. */
 	private static double dryingFactor_;
 
@@ -55,7 +58,7 @@ public class FireDangerRatings {
 	 * Class constructor.
 	 */
 	public FireDangerRatings() {
-
+		FireDangerRatings.initialize();
 	}
 
 	/**
@@ -81,15 +84,24 @@ public class FireDangerRatings {
 			double wetBulbTemperature, boolean isSnowPresent,
 			double precipitation, double windSpeed,
 			int districtHerbaceousStage, double buildupIndex) {
-		setDryBulbTemperature(dryBulbTemperature);
-		setWetBulbTemperature(wetBulbTemperature);
-		setSnowPresent(isSnowPresent);
-		setPrecipitation(precipitation);
-		setWindSpeed(windSpeed);
-		setDistrictHerbaceousStage(districtHerbaceousStage);
-		setBuildupIndex(buildupIndex);
+		FireDangerRatings.initialize();
+		FireDangerRatings.dryBulbTemperature_ = dryBulbTemperature;
+		FireDangerRatings.wetBulbTemperature_ = wetBulbTemperature;
+		FireDangerRatings.isSnowPresent_ = isSnowPresent;
+		FireDangerRatings.precipitation_ = precipitation;
+		FireDangerRatings.windSpeed_ = windSpeed;
+		FireDangerRatings.districtHerbaceousStage_ = districtHerbaceousStage;
+		FireDangerRatings.buildupIndex_ = buildupIndex;
 	}
 
+	
+	private static void initialize() {
+		FireDangerRatings.fineFuelMoisture_= 99;
+		FireDangerRatings.adjustedFuelMoisture_= 99;
+		FireDangerRatings.dryingFactor_= 0;
+		FireDangerRatings.isSnowPresent_ = false;
+	}
+	
 	/**
 	 * Gets the dry bulb temperature.
 	 *
@@ -288,17 +300,31 @@ public class FireDangerRatings {
 	/**
 	 * @return the dryingFactor_
 	 */
-	public static double getDryingFactor() {
+	public double getDryingFactor() {
 		return dryingFactor_;
 	}
 
 	/**
 	 * @param dryingFactor_ the dryingFactor_ to set
 	 */
-	public static void setDryingFactor(double dryingFactor) {
+	public void setDryingFactor(double dryingFactor) {
 		FireDangerRatings.dryingFactor_ = dryingFactor;
 	}
 	
+	/**
+	 * @return the adjustedFuelMoisture_
+	 */
+	public static double getAdjustedFuelMoisture() {
+		return adjustedFuelMoisture_;
+	}
+
+	/**
+	 * @param adjustedFuelMoisture_ the adjustedFuelMoisture_ to set
+	 */
+	public static void setAdjustedFuelMoisture(double adjustedFuelMoisture) {
+		FireDangerRatings.adjustedFuelMoisture_ = adjustedFuelMoisture;
+	}
+
 	
 	/**
 	 * Adjust buldup index.
@@ -416,11 +442,6 @@ public class FireDangerRatings {
 	 */
 	public double computeFireDangerIndex() {
 		double fireLoadRating = 0;
-		double fineFuelMoisture = 99;
-		double buildupIndex = 0;
-		double adjustedFuelMoisture = 99;
-		double grassSpreadIndex = 0;
-		double timberSpreadIndex = 0;
 
 		if (FireDangerRatings.isSnowPresent_) {
 
@@ -433,6 +454,7 @@ public class FireDangerRatings {
 
 			// Adjust Buildup Index for precipitation_
 			FireDangerRatings.adjustBuldupIndex();
+			
 		} else {
 			/* No show on the ground so compute spread indexes and fire load */
 
@@ -451,7 +473,7 @@ public class FireDangerRatings {
 			// FireDangerRatings.buildupIndex_ = buildupIndex;
 
 			// Calculate Adjusted Fuel Moisture for heavy fuels
-			adjustedFuelMoisture = 0.9 * FireDangerRatings.fineFuelMoisture_
+			FireDangerRatings.adjustedFuelMoisture_ = 0.9 * FireDangerRatings.fineFuelMoisture_
 					+ 0.5 + 9.5
 					* Math.exp(-FireDangerRatings.buildupIndex_ / 50.0);
 
@@ -462,7 +484,7 @@ public class FireDangerRatings {
 
 			// Calculate Timber Spread Index
 			FireDangerRatings.timberSpreadIndex_ = FireDangerRatings
-					.computeSpreadIndex(adjustedFuelMoisture);
+					.computeSpreadIndex(FireDangerRatings.adjustedFuelMoisture_);
 			// FireDangerRatings.setTimberSpreadIndex(timberSpreadIndex);
 
 			// Calculate Fire Danger Rating
@@ -481,8 +503,10 @@ public class FireDangerRatings {
 					fireLoadRating = Math.pow(10.0, fireLoadRating);
 			}
 		}
+		
 		return fireLoadRating;
 	}
+
 
 	
 }
