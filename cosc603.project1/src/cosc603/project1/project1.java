@@ -1,6 +1,6 @@
 package cosc603.project1;
 import java.util.Scanner;
-import cosc603.project1.FireDangerRatings;
+
 /**
  * @author Ken Capolongo
  *
