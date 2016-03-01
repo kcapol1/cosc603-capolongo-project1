@@ -28,8 +28,8 @@ public class project1 {
 		printAll();
 		
         int menuSelection;
-        double inputDouble;
-        boolean inputBoolean;
+        double inputMeasurement;
+        int inputFlag;
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println( );
@@ -49,32 +49,37 @@ public class project1 {
             menuSelection = scanner.nextInt();
             switch (menuSelection) {
                 case 1: System.out.println("Dry-bulb temperature:");
-                	inputDouble = scanner.nextDouble();
-                	fireDangerRatings_.setDryBulbTemperature(inputDouble);
+                	inputMeasurement = scanner.nextDouble();
+                	fireDangerRatings_.setDryBulbTemperature(inputMeasurement);
                 	break;
                 case 2: System.out.println("Wet-bulb temperature:");
-                	inputDouble = scanner.nextDouble();
-                	fireDangerRatings_.setWetBulbTemperature(inputDouble);
+                	inputMeasurement = scanner.nextDouble();
+                	fireDangerRatings_.setWetBulbTemperature(inputMeasurement);
                     break;
                 case 3: System.out.println("Is snow present (1=y/0=n):");
-                	inputBoolean = scanner.nextBoolean();
-                	fireDangerRatings_.setSnowPresent(inputBoolean);
+                	inputFlag = scanner.nextInt();
+                	if(inputFlag == 1) {
+                		fireDangerRatings_.setSnowPresent(true);
+                	}
+                	else {
+                		fireDangerRatings_.setSnowPresent(false);
+                	}
                 	break;
                 case 4: System.out.println("24-hour precipitation (inches):");
-            		inputDouble = scanner.nextDouble();
-            		fireDangerRatings_.setPrecipitation(inputDouble);
+                	inputMeasurement = scanner.nextDouble();
+            		fireDangerRatings_.setPrecipitation(inputMeasurement);
                     break;
                 case 5: System.out.println("Current wind speed (MPH):");
-        			inputDouble = scanner.nextDouble();
-        			fireDangerRatings_.setWindSpeed(inputDouble);
+                	inputMeasurement = scanner.nextDouble();
+        			fireDangerRatings_.setWindSpeed(inputMeasurement);
                     break;
                 case 6: System.out.println("Yesterday's buildup index:");
-    				inputDouble = scanner.nextDouble();
-    				fireDangerRatings_.setBuildupIndex(inputDouble);
+                	inputMeasurement = scanner.nextDouble();
+    				fireDangerRatings_.setBuildupIndex(inputMeasurement);
                     break;
                 case 7: System.out.println("Current herbaceous stage of vegetation:");
-                	inputDouble = scanner.nextDouble();
-                	fireDangerRatings_.setDistrictHerbaceousStage(inputDouble);
+                	inputMeasurement = scanner.nextDouble();
+                	fireDangerRatings_.setDistrictHerbaceousStage(inputMeasurement);
                     break;
                 default: menuSelection = 0;
                           break;
