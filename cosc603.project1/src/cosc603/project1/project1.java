@@ -22,7 +22,7 @@ public class project1 {
 		fireDangerRatings.setSnowPresent(false);
 		fireDangerRatings.setPrecipitation(0.1);
 		fireDangerRatings.setWindSpeed(14);
-//		herbaceous stage of veg;
+		fireDangerRatings.setDistrictHerbaceousStage(1);
 		fireDangerRatings.setBuildupIndex(3);
 		
 		fireDangerIndex = fireDangerRatings.computeFireDangerIndex();
