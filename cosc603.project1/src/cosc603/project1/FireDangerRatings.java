@@ -349,9 +349,9 @@ public class FireDangerRatings {
 		double tempValue;
 		double diff = 0;
 		int tempInt = 3;
-		final double A[] = { -0.185900, -0.85900, -0.05966, -0.07737 };
-		final double B[] = { 30.0, 19.2, 13.8, 22.5 };
-		final double rangeDrytoWet[] = { 4.5, 12.5, 27.5 };
+		final double [] A = { -0.185900, -0.85900, -0.05966, -0.07737 };
+		final double [] B = { 30.0, 19.2, 13.8, 22.5 };
+		final double [] rangeDrytoWet = { 4.5, 12.5, 27.5 };
 
 		diff = FireDangerRatings.dryBulbTemperature_
 				- FireDangerRatings.wetBulbTemperature_;
@@ -379,7 +379,7 @@ public class FireDangerRatings {
 	 */
 	public static int findDryingFactor() {
 		int tempInt = 5;
-		final double D[] = { 16.0, 10.0, 7.0, 5.0, 4.0, 3.0 };
+		final double [] D = { 16.0, 10.0, 7.0, 5.0, 4.0, 3.0 };
 
 		for (int i = 0; i < 6; i++) {
 			if (FireDangerRatings.fineFuelMoisture_ > D[i]) {
