@@ -91,7 +91,7 @@ public class FireDangerRatings {
 	 *
 	 * @return dryBulbTemperature_
 	 */
-	public static double getDryBulbTemperature() {
+	public double getDryBulbTemperature() {
 		return dryBulbTemperature_;
 	}
 
@@ -112,7 +112,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the wetBulbTemperature_
 	 */
-	public static double getWetBulbTemperature() {
+	public double getWetBulbTemperature() {
 		return wetBulbTemperature_;
 	}
 
@@ -133,7 +133,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the isSnowPresent_
 	 */
-	public static boolean isSnowPresent() {
+	public boolean isSnowPresent() {
 		return isSnowPresent_;
 	}
 
@@ -151,7 +151,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the precipitation_
 	 */
-	public static double getPrecipitation() {
+	public double getPrecipitation() {
 		return precipitation_;
 	}
 
@@ -169,7 +169,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the windSpeed_
 	 */
-	public static double getWindSpeed() {
+	public double getWindSpeed() {
 		return windSpeed_;
 	}
 
@@ -187,7 +187,7 @@ public class FireDangerRatings {
 	 *
 	 * @return the districtHerbaceousStage_
 	 */
-	public static double getDistrictHerbaceousStage() {
+	public double getDistrictHerbaceousStage() {
 		return districtHerbaceousStage_;
 	}
 
@@ -232,7 +232,7 @@ public class FireDangerRatings {
 	 *
 	 * @param fineFuelMoisture the fineFuelMoisture_ to set
 	 */
-	protected static void setFineFuelMoisture(double fineFuelMoisture) {
+	protected void setFineFuelMoisture(double fineFuelMoisture) {
 		FireDangerRatings.fineFuelMoisture_ = fineFuelMoisture;
 	}
 	
@@ -250,7 +250,7 @@ public class FireDangerRatings {
 	 *
 	 * @param timberSpreadIndex the timberSpreadIndex_ to set
 	 */
-	protected static void setTimberSpreadIndex(double timberSpreadIndex) {
+	protected void setTimberSpreadIndex(double timberSpreadIndex) {
 		FireDangerRatings.timberSpreadIndex_ = timberSpreadIndex;
 	}
 	
@@ -268,7 +268,7 @@ public class FireDangerRatings {
 	 *
 	 * @param grassSpreadIndex the grassSpreadIndex_ to set
 	 */
-	protected static void setGrassSpreadIndex(double grassSpreadIndex) {
+	protected void setGrassSpreadIndex(double grassSpreadIndex) {
 		FireDangerRatings.grassSpreadIndex_ = grassSpreadIndex;
 	}
 	
@@ -279,10 +279,10 @@ public class FireDangerRatings {
 		// Adjust Buildup Index for Precipitation
        double tempValue;
 
-       if(FireDangerRatings.getPrecipitation() > 0.1) {
+       if(FireDangerRatings.precipitation_ > 0.1) {
 
 			//		BUO=-50.*ALOG(    1.-(1. - EXP(-BUO/50.) ) * EXP(-1.175*(precipitation_-.1) ) )
-			tempValue = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (FireDangerRatings.getBuildupIndex()/50.0)) * Math.exp( -1.175 * (FireDangerRatings.getPrecipitation() - 0.1))));
+			tempValue = -50.0 * Math.log(1.0 - (1.0 - Math.exp(-1.0 * (FireDangerRatings.buildupIndex_/50.0)) * Math.exp( -1.175 * (FireDangerRatings.precipitation_ - 0.1))));
  
 			//		If BUO < 0 then BUI = 0		
         	if(tempValue < 0)
@@ -303,7 +303,7 @@ public class FireDangerRatings {
 		final double B [] = {30.0, 19.2, 13.8, 22.5};
 		final double rangeDrytoWet [] = {4.5, 12.5, 27.5};
 
-		diff = FireDangerRatings.getDryBulbTemperature() - FireDangerRatings.getWetBulbTemperature();
+		diff = FireDangerRatings.dryBulbTemperature_- FireDangerRatings.wetBulbTemperature_;
 
 		for (int i = 0; i < 3; i++) {
         	if(diff <= rangeDrytoWet[i]) {
@@ -317,7 +317,7 @@ public class FireDangerRatings {
         if(tempValue < 1)
         	tempValue = 1;
         
-        FireDangerRatings.setFineFuelMoisture(tempValue);
+        FireDangerRatings.fineFuelMoisture_ = tempValue;
 
 	}
 	
@@ -331,7 +331,7 @@ public class FireDangerRatings {
 		final double D [] = {16.0, 10.0, 7.0, 5.0, 4.0, 3.0};
 
         for (int i = 0; i < 6; i++) {
-        	if(FireDangerRatings.getFineFuelMoisture() > D[i]) {
+        	if(FireDangerRatings.fineFuelMoisture_ > D[i]) {
         		tempInt = i - 1;
         		break;
         	}
@@ -353,11 +353,11 @@ public class FireDangerRatings {
         // Check if Fuel Moisture is greater than thirty percent
 		if(fuelMoisture < 30 ) {
 
-			if(FireDangerRatings.getWindSpeed() < 14 ) {
-				value = .01312 * (FireDangerRatings.getWindSpeed() + 6.) * Math.pow(33.0 - fuelMoisture,1.65) - 3.0;
+			if(FireDangerRatings.windSpeed_ < 14 ) {
+				value = .01312 * (FireDangerRatings.windSpeed_ + 6.) * Math.pow(33.0 - fuelMoisture,1.65) - 3.0;
 			}
 			else {
-				value = .00918 * (FireDangerRatings.getWindSpeed() + 14.) * Math.pow(33.0 - fuelMoisture,1.65) - 3.0;
+				value = .00918 * (FireDangerRatings.windSpeed_ + 14.) * Math.pow(33.0 - fuelMoisture,1.65) - 3.0;
 			}
 
 			if(value < 1 ) 
@@ -388,11 +388,11 @@ public class FireDangerRatings {
 		double grassSpreadIndex = 0;
 		double timberSpreadIndex = 0;
 		
-		if(FireDangerRatings.isSnowPresent()) { 
+		if(FireDangerRatings.isSnowPresent_) { 
 
 			/* There is snow on the ground.  Set the Timber and Grass indexes to zero (0)  */
-			FireDangerRatings.setGrassSpreadIndex(0);
-			FireDangerRatings.setTimberSpreadIndex(0);
+			FireDangerRatings.grassSpreadIndex_ = 0;
+			FireDangerRatings.timberSpreadIndex_ = 0;
 			
 	        // Adjust Buildup Index for precipitation_
 			FireDangerRatings.adjustBuldupIndex();
@@ -401,33 +401,32 @@ public class FireDangerRatings {
 			/* No show on the ground so compute spread indexes and fire load */
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
-			fineFuelMoisture = FireDangerRatings.getFineFuelMoisture() + (FireDangerRatings.getDistrictHerbaceousStage() - 1.0) * 5.0;				
-            FireDangerRatings.setFineFuelMoisture(fineFuelMoisture);
+			FireDangerRatings.fineFuelMoisture_ = FireDangerRatings.fineFuelMoisture_ + (FireDangerRatings.districtHerbaceousStage_ - 1.0) * 5.0;				
             
             // Adjust Buildup Index for precipitation_ before adding to Drying Factor
             FireDangerRatings.adjustBuldupIndex();
             
             // Add Drying Factor to Buildup Index
-			buildupIndex = FireDangerRatings.getBuildupIndex() + FireDangerRatings.findDryingFactor();
-			FireDangerRatings.buildupIndex_ = buildupIndex;
+            FireDangerRatings.buildupIndex_ = FireDangerRatings.buildupIndex_ + FireDangerRatings.findDryingFactor();
+//			FireDangerRatings.buildupIndex_ = buildupIndex;
 			
             // Calculate Adjusted Fuel Moisture for heavy fuels
-            adjustedFuelMoisture = 0.9 * FireDangerRatings.getFineFuelMoisture() + 0.5 + 9.5 * Math.exp(-FireDangerRatings.getBuildupIndex() / 50.0);
+            adjustedFuelMoisture = 0.9 * FireDangerRatings.fineFuelMoisture_ + 0.5 + 9.5 * Math.exp(-FireDangerRatings.buildupIndex_ / 50.0);
             
             // Calculate Grass Spread Index
-            grassSpreadIndex = FireDangerRatings.computeSpreadIndex(FireDangerRatings.getFineFuelMoisture());
-            FireDangerRatings.setGrassSpreadIndex(grassSpreadIndex);
+            FireDangerRatings.grassSpreadIndex_ = FireDangerRatings.computeSpreadIndex(FireDangerRatings.fineFuelMoisture_);
+//            FireDangerRatings.setGrassSpreadIndex(grassSpreadIndex);
 
             // Calculate Timber Spread Index
-            timberSpreadIndex = FireDangerRatings.computeSpreadIndex(adjustedFuelMoisture);
-            FireDangerRatings.setTimberSpreadIndex(timberSpreadIndex);
+            FireDangerRatings.timberSpreadIndex_ = FireDangerRatings.computeSpreadIndex(adjustedFuelMoisture);
+//            FireDangerRatings.setTimberSpreadIndex(timberSpreadIndex);
             
             // Calculate Fire Danger Rating
             // Check if either Timber Spread Index or Buildup Index are zero
-            if((FireDangerRatings.getTimberSpreadIndex() > 0) && (FireDangerRatings.getBuildupIndex() > 0)) {
+            if((FireDangerRatings.timberSpreadIndex_ > 0) && (FireDangerRatings.buildupIndex_ > 0)) {
 
             	//				fireLoadRating = 1.75*ALOG10 (timberSpreadIndex) + .32*ALOG10( BUO ) – 1.640
-            	fireLoadRating = 1.75 * Math.log10(FireDangerRatings.getTimberSpreadIndex()) + 0.32 * Math.log10(FireDangerRatings.getBuildupIndex() ) - 1.640;	
+            	fireLoadRating = 1.75 * Math.log10(FireDangerRatings.timberSpreadIndex_) + 0.32 * Math.log10(FireDangerRatings.buildupIndex_ ) - 1.640;	
  
             	if(fireLoadRating > 0 )
             		fireLoadRating =	Math.pow(10.0,fireLoadRating);
