@@ -94,14 +94,15 @@ public class FireDangerRatings {
 		FireDangerRatings.buildupIndex_ = buildupIndex;
 	}
 
-	
 	private static void initialize() {
-		FireDangerRatings.fineFuelMoisture_= 99;
-		FireDangerRatings.adjustedFuelMoisture_= 99;
-		FireDangerRatings.dryingFactor_= 0;
+		FireDangerRatings.fineFuelMoisture_ = 99;
+		FireDangerRatings.adjustedFuelMoisture_ = 99;
+		FireDangerRatings.dryingFactor_ = 0;
 		FireDangerRatings.isSnowPresent_ = false;
+		FireDangerRatings.findDryingFactor();
+
 	}
-	
+
 	/**
 	 * Gets the dry bulb temperature.
 	 *
@@ -296,7 +297,7 @@ public class FireDangerRatings {
 	protected void setGrassSpreadIndex(double grassSpreadIndex) {
 		FireDangerRatings.grassSpreadIndex_ = grassSpreadIndex;
 	}
-	
+
 	/**
 	 * @return the dryingFactor_
 	 */
@@ -305,27 +306,28 @@ public class FireDangerRatings {
 	}
 
 	/**
-	 * @param dryingFactor_ the dryingFactor_ to set
+	 * @param dryingFactor
+	 *            the dryingFactor_ to set
 	 */
 	public void setDryingFactor(double dryingFactor) {
 		FireDangerRatings.dryingFactor_ = dryingFactor;
 	}
-	
+
 	/**
 	 * @return the adjustedFuelMoisture_
 	 */
-	public static double getAdjustedFuelMoisture() {
+	public double getAdjustedFuelMoisture() {
 		return adjustedFuelMoisture_;
 	}
 
 	/**
-	 * @param adjustedFuelMoisture_ the adjustedFuelMoisture_ to set
+	 * @param adjustedFuelMoisture
+	 *            the adjustedFuelMoisture_ to set
 	 */
 	public static void setAdjustedFuelMoisture(double adjustedFuelMoisture) {
 		FireDangerRatings.adjustedFuelMoisture_ = adjustedFuelMoisture;
 	}
 
-	
 	/**
 	 * Adjust buldup index.
 	 */
@@ -454,7 +456,7 @@ public class FireDangerRatings {
 
 			// Adjust Buildup Index for precipitation_
 			FireDangerRatings.adjustBuldupIndex();
-			
+
 		} else {
 			/* No show on the ground so compute spread indexes and fire load */
 
@@ -473,8 +475,8 @@ public class FireDangerRatings {
 			// FireDangerRatings.buildupIndex_ = buildupIndex;
 
 			// Calculate Adjusted Fuel Moisture for heavy fuels
-			FireDangerRatings.adjustedFuelMoisture_ = 0.9 * FireDangerRatings.fineFuelMoisture_
-					+ 0.5 + 9.5
+			FireDangerRatings.adjustedFuelMoisture_ = 0.9
+					* FireDangerRatings.fineFuelMoisture_ + 0.5 + 9.5
 					* Math.exp(-FireDangerRatings.buildupIndex_ / 50.0);
 
 			// Calculate Grass Spread Index
@@ -503,10 +505,8 @@ public class FireDangerRatings {
 					fireLoadRating = Math.pow(10.0, fireLoadRating);
 			}
 		}
-		
+
 		return fireLoadRating;
 	}
 
-
-	
 }
