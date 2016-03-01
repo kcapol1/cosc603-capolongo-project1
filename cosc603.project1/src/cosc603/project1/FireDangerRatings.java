@@ -80,7 +80,7 @@ public class FireDangerRatings {
 		setSnowPresent(isSnowPresent);
 		setPrecipitation(precipitation);
 		setWindSpeed(windSpeed);
-		setDistrictHerbState(districtHerbaceousStage);
+		setDistrictHerbaceousStage(districtHerbaceousStage);
 		setBuildupIndex(buildupIndex);	
 	}
 	
@@ -288,7 +288,7 @@ public class FireDangerRatings {
         	if(tempValue < 0)
         		tempValue = 0;
         	
-        	FireDangerRatings.setBuildupIndex(tempValue);
+        	FireDangerRatings.buildupIndex_ = tempValue;
         }
 	}
 	
@@ -409,7 +409,7 @@ public class FireDangerRatings {
             
             // Add Drying Factor to Buildup Index
 			buildupIndex = FireDangerRatings.getBuildupIndex() + FireDangerRatings.findDryingFactor();
-			FireDangerRatings.setBuildupIndex(buildupIndex);
+			FireDangerRatings.buildupIndex_ = buildupIndex;
 			
             // Calculate Adjusted Fuel Moisture for heavy fuels
             adjustedFuelMoisture = 0.9 * FireDangerRatings.getFineFuelMoisture() + 0.5 + 9.5 * Math.exp(-FireDangerRatings.getBuildupIndex() / 50.0);
