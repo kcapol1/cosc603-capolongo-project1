@@ -322,23 +322,19 @@ public class FireDangerRatings {
 
 	
 	/**
-	 * Adjust buldup index.
+	 * Adjust buldup index for Precipitation.
 	 */
 	private static void adjustBuldupIndex() {
-		// Adjust Buildup Index for Precipitation
 		double tempValue;
 
 		if (FireDangerRatings.precipitation_ > 0.1) {
 
-			// BUO=-50.*ALOG( 1.-(1. - EXP(-BUO/50.) ) *
-			// EXP(-1.175*(precipitation_-.1) ) )
 			tempValue = -50.0
 					* Math.log(1.0 - (1.0 - Math.exp(-1.0
 							* (FireDangerRatings.buildupIndex_ / 50.0))
 							* Math.exp(-1.175
 									* (FireDangerRatings.precipitation_ - 0.1))));
 
-			// If BUO < 0 then BUI = 0
 			if (tempValue < 0)
 				tempValue = 0;
 
@@ -470,7 +466,6 @@ public class FireDangerRatings {
 			// Add Drying Factor to Buildup Index
 			FireDangerRatings.buildupIndex_ = FireDangerRatings.buildupIndex_
 					+ FireDangerRatings.dryingFactor_;
-			// FireDangerRatings.buildupIndex_ = buildupIndex;
 
 			// Calculate Adjusted Fuel Moisture for heavy fuels
 			FireDangerRatings.adjustedFuelMoisture_ = 0.9 * FireDangerRatings.fineFuelMoisture_
@@ -480,12 +475,10 @@ public class FireDangerRatings {
 			// Calculate Grass Spread Index
 			FireDangerRatings.grassSpreadIndex_ = FireDangerRatings
 					.computeSpreadIndex(FireDangerRatings.fineFuelMoisture_);
-			// FireDangerRatings.setGrassSpreadIndex(grassSpreadIndex);
 
 			// Calculate Timber Spread Index
 			FireDangerRatings.timberSpreadIndex_ = FireDangerRatings
 					.computeSpreadIndex(FireDangerRatings.adjustedFuelMoisture_);
-			// FireDangerRatings.setTimberSpreadIndex(timberSpreadIndex);
 
 			// Calculate Fire Danger Rating
 			// Check if either Timber Spread Index or Buildup Index are zero
