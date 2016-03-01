@@ -99,7 +99,6 @@ public class FireDangerRatings {
 		FireDangerRatings.adjustedFuelMoisture_ = 99;
 		FireDangerRatings.dryingFactor_ = 0;
 		FireDangerRatings.isSnowPresent_ = false;
-		FireDangerRatings.findDryingFactor();
 
 	}
 
@@ -113,15 +112,13 @@ public class FireDangerRatings {
 	}
 
 	/**
-	 * Sets the dry bulb temperature. Also calculates the fine fuel moisture
+	 * Sets the dry bulb temperature.
 	 *
 	 * @param dryBulbTemperature
 	 *            the dryBulbTemperature_ to set
 	 */
 	public void setDryBulbTemperature(double dryBulbTemperature) {
 		FireDangerRatings.dryBulbTemperature_ = dryBulbTemperature;
-		// Calculate Fine Fuel Moisture
-		FireDangerRatings.computeFineFuelMoisture();
 	}
 
 	/**
@@ -134,15 +131,13 @@ public class FireDangerRatings {
 	}
 
 	/**
-	 * Sets the wet bulb temperature. Also calculates the fine fuel moisture
+	 * Sets the wet bulb temperature.
 	 *
 	 * @param wetBulbTemperature
 	 *            the wetBulbTemperature_ to set
 	 */
 	public void setWetBulbTemperature(double wetBulbTemperature) {
 		FireDangerRatings.wetBulbTemperature_ = wetBulbTemperature;
-		// Calculate Fine Fuel Moisture
-		FireDangerRatings.computeFineFuelMoisture();
 	}
 
 	/**
@@ -257,7 +252,6 @@ public class FireDangerRatings {
 	 */
 	protected void setFineFuelMoisture(double fineFuelMoisture) {
 		FireDangerRatings.fineFuelMoisture_ = fineFuelMoisture;
-		FireDangerRatings.findDryingFactor();
 	}
 
 	/**
@@ -460,6 +454,12 @@ public class FireDangerRatings {
 		} else {
 			/* No show on the ground so compute spread indexes and fire load */
 
+			// Calculate Fine Fuel Moisture
+			FireDangerRatings.computeFineFuelMoisture();
+			
+			FireDangerRatings.findDryingFactor();
+		
+			
 			// Add five (5) percent Fine Fuel Moisture for each Herb State
 			// greater than one
 			FireDangerRatings.fineFuelMoisture_ = FireDangerRatings.fineFuelMoisture_
