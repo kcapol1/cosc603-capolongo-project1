@@ -14,8 +14,8 @@ public class project1 {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//		double fireDangerIndex;
-//		FireDangerRatings fireDangerRatings = new FireDangerRatings(78.0,50.0,false,0.1,14.0,1,3.0);
+
+		//FireDangerRatings fireDangerRatings = new FireDangerRatings(78.0,50.0,false,0.1,14.0,1,3.0);
 		fireDangerRatings_ = new FireDangerRatings();
 		fireDangerRatings_.setDryBulbTemperature(78);
 		fireDangerRatings_.setWetBulbTemperature(50);
@@ -25,7 +25,6 @@ public class project1 {
 		fireDangerRatings_.setDistrictHerbaceousStage(1);
 		fireDangerRatings_.setBuildupIndex(3);
 		
-//		fireDangerIndex = fireDangerRatings.computeFireDangerIndex();
 		printAll();
 		
         int menuSelection;
@@ -85,8 +84,8 @@ public class project1 {
             
         } while (menuSelection != 0);
        
-        System.out.println("\nDone!"); 
-    	
+        System.out.println("\nDone!");
+
         scanner.close();
 
 	}
