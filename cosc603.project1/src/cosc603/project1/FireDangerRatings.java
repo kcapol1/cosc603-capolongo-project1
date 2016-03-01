@@ -37,7 +37,7 @@ public class FireDangerRatings {
 	private	static double windSpeed_;
 	
 	/** The current herbaceous stage of vegetation. */
-	private	static double districtHerbState_;	// The current herb state of the district
+	private	static double districtHerbaceousStage_;	// The current herb state of the district
 	
 	/** The yesterday's buildup index. */
 	private	static double buildupIndex_;
@@ -69,18 +69,18 @@ public class FireDangerRatings {
 	 * @param isSnowPresent 		flag to indicate if snow is on the ground
 	 * @param precipitation			preceding 24 hour precipitation in inches
 	 * @param windSpeed				current wind speed in miles per hour
-	 * @param districtHerbState		current herbaceous stage of vegetation
+	 * @param districtHerbaceousStage		current herbaceous stage of vegetation
 	 * 								1=cured, 2=transition, 3=green
 	 * @param buildupIndex			yesterday's buildup index
 	 */
 	public FireDangerRatings(double	dryBulbTemperature, double wetBulbTemperature, boolean isSnowPresent,
-			double precipitation, double windSpeed, int	districtHerbState, double buildupIndex)	{
+			double precipitation, double windSpeed, int	districtHerbaceousStage, double buildupIndex)	{
 		setDryBulbTemperature(dryBulbTemperature);
 		setWetBulbTemperature(wetBulbTemperature);
 		setSnowPresent(isSnowPresent);
 		setPrecipitation(precipitation);
 		setWindSpeed(windSpeed);
-		setDistrictHerbState(districtHerbState);
+		setDistrictHerbState(districtHerbaceousStage);
 		setBuildupIndex(buildupIndex);	
 	}
 	
@@ -185,19 +185,19 @@ public class FireDangerRatings {
 	/**
 	 * Gets the district herb state.
 	 *
-	 * @return the districtHerbState_
+	 * @return the districtHerbaceousStage_
 	 */
-	public static double getDistrictHerbState() {
-		return districtHerbState_;
+	public static double getDistrictHerbaceousStage() {
+		return districtHerbaceousStage_;
 	}
 
 	/**
 	 * Sets the district herb state.
 	 *
-	 * @param districtHerbState the districtHerbState_ to set
+	 * @param districtHerbaceousStage the districtHerbaceousStage_ to set
 	 */
-	public static void setDistrictHerbState(double districtHerbState) {
-		FireDangerRatings.districtHerbState_ = districtHerbState;
+	public static void setDistrictHerbaceousStage(double districtHerbaceousStage) {
+		FireDangerRatings.districtHerbaceousStage_ = districtHerbaceousStage;
 	}
 
 	/**
@@ -401,7 +401,7 @@ public class FireDangerRatings {
 			/* No show on the ground so compute spread indexes and fire load */
 
 	        // Add five (5) percent Fine Fuel Moisture for each Herb State greater than one
-			fineFuelMoisture = FireDangerRatings.getFineFuelMoisture() + (FireDangerRatings.getDistrictHerbState() - 1.0) * 5.0;				
+			fineFuelMoisture = FireDangerRatings.getFineFuelMoisture() + (FireDangerRatings.getDistrictHerbaceousStage() - 1.0) * 5.0;				
             FireDangerRatings.setFineFuelMoisture(fineFuelMoisture);
             
             // Adjust Buildup Index for precipitation_ before adding to Drying Factor
