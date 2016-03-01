@@ -14,7 +14,7 @@ public class project1 {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		double fireDangerIndex;
+//		double fireDangerIndex;
 //		FireDangerRatings fireDangerRatings = new FireDangerRatings(78.0,50.0,false,0.1,14.0,1,3.0);
 		FireDangerRatings fireDangerRatings = new FireDangerRatings();
 		fireDangerRatings.setDryBulbTemperature(78);
@@ -25,17 +25,16 @@ public class project1 {
 		fireDangerRatings.setDistrictHerbaceousStage(1);
 		fireDangerRatings.setBuildupIndex(3);
 		
-		fireDangerIndex = fireDangerRatings.computeFireDangerIndex();
+//		fireDangerIndex = fireDangerRatings.computeFireDangerIndex();
         System.out.println();
-        System.out.format("Fine Fuel Moisture = %-10.3f%n",FireDangerRatings.getFineFuelMoisture());
-//        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",adjustedFuelMoisture_);
-//        System.out.format("Drying Factor = %-10.3f%n",FireDangerRatings.getDryingFactor());
-        System.out.format("Buildup Index = %-10.3f%n",FireDangerRatings.getBuildupIndex());
-        System.out.format("Grass Spread Index = %-10.3f%n",FireDangerRatings.getGrassSpreadIndex());
-        System.out.format("Timber Spread Index = %-10.3f%n",FireDangerRatings.getTimberSpreadIndex());
-        System.out.format("Fire Load Rating = %-10.3f%n",fireDangerIndex);
+        System.out.format("Fine Fuel Moisture = %-10.3f%n",fireDangerRatings.getFineFuelMoisture());
+        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",fireDangerRatings.getAdjustedFuelMoisture());
+        System.out.format("Drying Factor = %-10.3f%n",fireDangerRatings.getDryingFactor());
+        System.out.format("Buildup Index = %-10.3f%n",fireDangerRatings.getBuildupIndex());
+        System.out.format("Grass Spread Index = %-10.3f%n",fireDangerRatings.getGrassSpreadIndex());
+        System.out.format("Timber Spread Index = %-10.3f%n",fireDangerRatings.getTimberSpreadIndex());
+        System.out.format("Fire Load Rating = %-10.3f%n",fireDangerRatings.computeFireDangerIndex());
 
-        System.out.println("Author: Ken Capolongo");
         int menuSelection;
         double inputDouble;
         boolean inputBoolean;
@@ -82,8 +81,8 @@ public class project1 {
     				fireDangerRatings.setBuildupIndex(inputDouble);
                     break;
                 case 7: System.out.println("Current herbaceous stage of vegetation:");
-//				inputDouble = scanner.nextDouble();
-//				FireDangerRatings.s(inputDouble);
+                	inputDouble = scanner.nextDouble();
+					fireDangerRatings.setDistrictHerbaceousStage(inputDouble);
                     break;
                 default: menuSelection = 0;
                           break;
