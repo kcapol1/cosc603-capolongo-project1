@@ -252,7 +252,6 @@ public class FireDangerRatings {
 	 */
 	protected void setFineFuelMoisture(double fineFuelMoisture) {
 		FireDangerRatings.fineFuelMoisture_ = fineFuelMoisture;
-		FireDangerRatings.findDryingFactor();
 	}
 
 	/**
@@ -456,6 +455,8 @@ public class FireDangerRatings {
 
 			// Calculate Fine Fuel Moisture
 			FireDangerRatings.computeFineFuelMoisture();
+		
+			FireDangerRatings.findDryingFactor();
 			
 			// Add five (5) percent Fine Fuel Moisture for each Herb State
 			// greater than one
@@ -468,7 +469,7 @@ public class FireDangerRatings {
 
 			// Add Drying Factor to Buildup Index
 			FireDangerRatings.buildupIndex_ = FireDangerRatings.buildupIndex_
-					+ FireDangerRatings.findDryingFactor();
+					+ FireDangerRatings.dryingFactor_;
 			// FireDangerRatings.buildupIndex_ = buildupIndex;
 
 			// Calculate Adjusted Fuel Moisture for heavy fuels
