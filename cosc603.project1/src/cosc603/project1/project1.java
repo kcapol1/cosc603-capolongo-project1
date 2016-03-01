@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class project1 {
 	
-	
+	private static FireDangerRatings fireDangerRatings_;
 	/**
 	 * @param args
 	 */
@@ -16,25 +16,18 @@ public class project1 {
 		// TODO Auto-generated method stub
 //		double fireDangerIndex;
 //		FireDangerRatings fireDangerRatings = new FireDangerRatings(78.0,50.0,false,0.1,14.0,1,3.0);
-		FireDangerRatings fireDangerRatings = new FireDangerRatings();
-		fireDangerRatings.setDryBulbTemperature(78);
-		fireDangerRatings.setWetBulbTemperature(50);
-		fireDangerRatings.setSnowPresent(false);
-		fireDangerRatings.setPrecipitation(0.1);
-		fireDangerRatings.setWindSpeed(14);
-		fireDangerRatings.setDistrictHerbaceousStage(1);
-		fireDangerRatings.setBuildupIndex(3);
+		fireDangerRatings_ = new FireDangerRatings();
+		fireDangerRatings_.setDryBulbTemperature(78);
+		fireDangerRatings_.setWetBulbTemperature(50);
+		fireDangerRatings_.setSnowPresent(false);
+		fireDangerRatings_.setPrecipitation(0.1);
+		fireDangerRatings_.setWindSpeed(14);
+		fireDangerRatings_.setDistrictHerbaceousStage(1);
+		fireDangerRatings_.setBuildupIndex(3);
 		
 //		fireDangerIndex = fireDangerRatings.computeFireDangerIndex();
-        System.out.println();
-        System.out.format("Fine Fuel Moisture = %-10.3f%n",fireDangerRatings.getFineFuelMoisture());
-        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",fireDangerRatings.getAdjustedFuelMoisture());
-        System.out.format("Drying Factor = %-10.3f%n",fireDangerRatings.getDryingFactor());
-        System.out.format("Buildup Index = %-10.3f%n",fireDangerRatings.getBuildupIndex());
-        System.out.format("Grass Spread Index = %-10.3f%n",fireDangerRatings.getGrassSpreadIndex());
-        System.out.format("Timber Spread Index = %-10.3f%n",fireDangerRatings.getTimberSpreadIndex());
-        System.out.format("Fire Load Rating = %-10.3f%n",fireDangerRatings.computeFireDangerIndex());
-
+		printAll();
+		
         int menuSelection;
         double inputDouble;
         boolean inputBoolean;
@@ -58,37 +51,37 @@ public class project1 {
             switch (menuSelection) {
                 case 1: System.out.println("Dry-bulb temperature:");
                 	inputDouble = scanner.nextDouble();
-                	fireDangerRatings.setDryBulbTemperature(inputDouble);
+                	fireDangerRatings_.setDryBulbTemperature(inputDouble);
                 	break;
                 case 2: System.out.println("Wet-bulb temperature:");
                 	inputDouble = scanner.nextDouble();
-                	fireDangerRatings.setWetBulbTemperature(inputDouble);
+                	fireDangerRatings_.setWetBulbTemperature(inputDouble);
                     break;
                 case 3: System.out.println("Is snow present (1=y/0=n):");
                 	inputBoolean = scanner.nextBoolean();
-                	fireDangerRatings.setSnowPresent(inputBoolean);
+                	fireDangerRatings_.setSnowPresent(inputBoolean);
                 	break;
                 case 4: System.out.println("24-hour precipitation (inches):");
             		inputDouble = scanner.nextDouble();
-            		fireDangerRatings.setPrecipitation(inputDouble);
+            		fireDangerRatings_.setPrecipitation(inputDouble);
                     break;
                 case 5: System.out.println("Current wind speed (MPH):");
         			inputDouble = scanner.nextDouble();
-        			fireDangerRatings.setWindSpeed(inputDouble);
+        			fireDangerRatings_.setWindSpeed(inputDouble);
                     break;
                 case 6: System.out.println("Yesterday's buildup index:");
     				inputDouble = scanner.nextDouble();
-    				fireDangerRatings.setBuildupIndex(inputDouble);
+    				fireDangerRatings_.setBuildupIndex(inputDouble);
                     break;
                 case 7: System.out.println("Current herbaceous stage of vegetation:");
                 	inputDouble = scanner.nextDouble();
-					fireDangerRatings.setDistrictHerbaceousStage(inputDouble);
+                	fireDangerRatings_.setDistrictHerbaceousStage(inputDouble);
                     break;
                 default: menuSelection = 0;
                           break;
             }
             
-            System.out.println("Fire Danger Index: " + fireDangerRatings.computeFireDangerIndex());
+    		printAll();
             
         } while (menuSelection != 0);
        
@@ -96,6 +89,18 @@ public class project1 {
     	
         scanner.close();
 
+	}
+	
+	private static void printAll() {
+	    System.out.println();
+        System.out.format("Fine Fuel Moisture = %-10.3f%n",fireDangerRatings_.getFineFuelMoisture());
+        System.out.format("Adjusted Fuel Moisture = %-10.3f%n",fireDangerRatings_.getAdjustedFuelMoisture());
+        System.out.format("Drying Factor = %-10.3f%n",fireDangerRatings_.getDryingFactor());
+        System.out.format("Buildup Index = %-10.3f%n",fireDangerRatings_.getBuildupIndex());
+        System.out.format("Grass Spread Index = %-10.3f%n",fireDangerRatings_.getGrassSpreadIndex());
+        System.out.format("Timber Spread Index = %-10.3f%n",fireDangerRatings_.getTimberSpreadIndex());
+        System.out.format("Fire Load Rating = %-10.3f%n",fireDangerRatings_.computeFireDangerIndex());
+			
 	}
 	
 
