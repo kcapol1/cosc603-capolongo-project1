@@ -1,16 +1,25 @@
+/*
+ * Runner for FireDangerRatings class
+ */
 package cosc603.project1;
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Ken Capolongo
+ * The Class project1.
  *
+ * @author Ken Capolongo
  */
 
 public class project1 {
 	
+	/** The fire danger ratings_. */
 	private static FireDangerRatings fireDangerRatings_;
+	
 	/**
-	 * @param args
+	 * The main method.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -94,6 +103,9 @@ public class project1 {
 
 	}
 	
+	/**
+	 * Prints the all.
+	 */
 	private static void printAll() {
 	    System.out.println();
         System.out.format("Fine Fuel Moisture = %-10.3f%n",fireDangerRatings_.getFineFuelMoisture());

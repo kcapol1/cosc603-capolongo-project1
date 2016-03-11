@@ -1,7 +1,4 @@
-package cosc603.project1;
-
-// TODO: Auto-generated Javadoc
-/**
+/*
  * Class for computing national fire danger ratings. and fire load index. It
  * computes buildup index, fire-load index, and various spread indexes. This is
  * a rewrite of the original code, which follows an equation computation method
@@ -9,11 +6,16 @@ package cosc603.project1;
  * memory limitations at the time the original program was created. The code was
  * listed in the US Forest Service research note NC-79 Computer Calculation of
  * Fire Danger, authored by William A.&nbsp; Main, Forest Research Technician,
- * US Forest Service.
- * 
+ * US Forest Service. 
+ */
+package cosc603.project1;
+
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class FireDangerRatings.
  * 
  * @author Ken Capolongo
- *
  */
 public class FireDangerRatings {
 
@@ -62,6 +64,9 @@ public class FireDangerRatings {
 	}
 
 		
+	/**
+	 * Initialize.
+	 */
 	private static void initialize() {
 		FireDangerRatings.dryBulbTemperature_ = 70;
 		FireDangerRatings.wetBulbTemperature_ = 60;
@@ -266,6 +271,8 @@ public class FireDangerRatings {
 	}
 	
 	/**
+	 * Gets the drying factor.
+	 *
 	 * @return the dryingFactor_
 	 */
 	public double getDryingFactor() {
@@ -273,13 +280,17 @@ public class FireDangerRatings {
 	}
 
 	/**
-	 * @param dryingFactor_ the dryingFactor_ to set
+	 * Sets the drying factor.
+	 *
+	 * @param dryingFactor the new drying factor
 	 */
 	public void setDryingFactor(double dryingFactor) {
 		FireDangerRatings.dryingFactor_ = dryingFactor;
 	}
 	
 	/**
+	 * Gets the adjusted fuel moisture.
+	 *
 	 * @return the adjustedFuelMoisture_
 	 */
 	public double getAdjustedFuelMoisture() {
@@ -287,7 +298,9 @@ public class FireDangerRatings {
 	}
 
 	/**
-	 * @param adjustedFuelMoisture_ the adjustedFuelMoisture_ to set
+	 * Sets the adjusted fuel moisture.
+	 *
+	 * @param adjustedFuelMoisture the new adjusted fuel moisture
 	 */
 	public static void setAdjustedFuelMoisture(double adjustedFuelMoisture) {
 		FireDangerRatings.adjustedFuelMoisture_ = adjustedFuelMoisture;
@@ -305,6 +318,11 @@ public class FireDangerRatings {
 		}
 	}
 
+	/**
+	 * Temp value1.
+	 *
+	 * @return the double
+	 */
 	private static double tempValue1() {
 		double tempValue1 = 0;
 		if (FireDangerRatings.precipitation_ > 0.1) {
@@ -328,6 +346,11 @@ public class FireDangerRatings {
 
 	}
 
+	/**
+	 * Temp value.
+	 *
+	 * @return the double
+	 */
 	private static double tempValue() {
 		double tempValue;
 		int tempInt = tempInt();
@@ -342,6 +365,11 @@ public class FireDangerRatings {
 		return tempValue;
 	}
 
+	/**
+	 * Temp int.
+	 *
+	 * @return the int
+	 */
 	private static int tempInt() {
 		double diff = 0;
 		int tempInt = 3;
