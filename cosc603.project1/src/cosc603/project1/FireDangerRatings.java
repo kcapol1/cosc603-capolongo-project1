@@ -352,30 +352,30 @@ public class FireDangerRatings {
 	 * Compute fine fuel moisture.
 	 */
 	private static void computeFineFuelMoisture() {
+		double tempValue = tempValue();
+		FireDangerRatings.fineFuelMoisture_ = tempValue;
+
+	}
+
+	private static double tempValue() {
 		double tempValue;
 		double diff = 0;
 		int tempInt = 3;
-		final double [] A = { -0.185900, -0.85900, -0.05966, -0.07737 };
-		final double [] B = { 30.0, 19.2, 13.8, 22.5 };
-		final double [] rangeDrytoWet = { 4.5, 12.5, 27.5 };
-
+		final double[] A = { -0.185900, -0.85900, -0.05966, -0.07737 };
+		final double[] B = { 30.0, 19.2, 13.8, 22.5 };
+		final double[] rangeDrytoWet = { 4.5, 12.5, 27.5 };
 		diff = FireDangerRatings.dryBulbTemperature_
 				- FireDangerRatings.wetBulbTemperature_;
-
 		for (int i = 0; i < 3; i++) {
 			if (diff <= rangeDrytoWet[i]) {
 				tempInt = i;
 				break;
 			}
 		}
-
 		tempValue = B[tempInt] * Math.exp(A[tempInt] * diff);
-
 		if (tempValue < 1)
 			tempValue = 1;
-
-		FireDangerRatings.fineFuelMoisture_ = tempValue;
-
+		return tempValue;
 	}
 
 	/**
