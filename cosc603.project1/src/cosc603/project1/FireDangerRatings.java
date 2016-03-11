@@ -331,21 +331,25 @@ public class FireDangerRatings {
 	 * Adjust buldup index for Precipitation.
 	 */
 	private static void adjustBuldupIndex() {
-		double tempValue;
-
+		double tempValue = tempValue1();
 		if (FireDangerRatings.precipitation_ > 0.1) {
 
-			tempValue = -50.0
+			FireDangerRatings.buildupIndex_ = tempValue;
+		}
+	}
+
+	private static double tempValue1() {
+		double tempValue1 = 0;
+		if (FireDangerRatings.precipitation_ > 0.1) {
+			tempValue1 = -50.0
 					* Math.log(1.0 - (1.0 - Math.exp(-1.0
 							* (FireDangerRatings.buildupIndex_ / 50.0))
 							* Math.exp(-1.175
 									* (FireDangerRatings.precipitation_ - 0.1))));
-
-			if (tempValue < 0)
-				tempValue = 0;
-
-			FireDangerRatings.buildupIndex_ = tempValue;
+			if (tempValue1 < 0)
+				tempValue1 = 0;
 		}
+		return tempValue1;
 	}
 
 	/**
