@@ -15,7 +15,6 @@ public class project1 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		//FireDangerRatings fireDangerRatings = new FireDangerRatings(78.0,50.0,false,0.1,14.0,1,3.0);
 		fireDangerRatings_ = new FireDangerRatings();
 		fireDangerRatings_.setDryBulbTemperature(78);
 		fireDangerRatings_.setWetBulbTemperature(50);

@@ -61,40 +61,7 @@ public class FireDangerRatings {
 		FireDangerRatings.initialize();
 	}
 
-	/**
-	 * Class constructor initializing inputs to compute fire danger ratings.
-	 * 
-	 * @param dryBulbTemperature
-	 *            dry-bulb temperature reading
-	 * @param wetBulbTemperature
-	 *            wet-bulb temperature reading
-	 * @param isSnowPresent
-	 *            flag to indicate if snow is on the ground
-	 * @param precipitation
-	 *            preceding 24 hour precipitation in inches
-	 * @param windSpeed
-	 *            current wind speed in miles per hour
-	 * @param districtHerbaceousStage
-	 *            current herbaceous stage of vegetation 1=cured, 2=transition,
-	 *            3=green
-	 * @param buildupIndex
-	 *            yesterday's buildup index
-	 */
-	public FireDangerRatings(double dryBulbTemperature,
-			double wetBulbTemperature, boolean isSnowPresent,
-			double precipitation, double windSpeed,
-			int districtHerbaceousStage, double buildupIndex) {
-		FireDangerRatings.initialize();
-		FireDangerRatings.dryBulbTemperature_ = dryBulbTemperature;
-		FireDangerRatings.wetBulbTemperature_ = wetBulbTemperature;
-		FireDangerRatings.isSnowPresent_ = isSnowPresent;
-		FireDangerRatings.precipitation_ = precipitation;
-		FireDangerRatings.windSpeed_ = windSpeed;
-		FireDangerRatings.districtHerbaceousStage_ = districtHerbaceousStage;
-		FireDangerRatings.buildupIndex_ = buildupIndex;
-	}
-
-	
+		
 	private static void initialize() {
 		FireDangerRatings.dryBulbTemperature_ = 70;
 		FireDangerRatings.wetBulbTemperature_ = 60;
