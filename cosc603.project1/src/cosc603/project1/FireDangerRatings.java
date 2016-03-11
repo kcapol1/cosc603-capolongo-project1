@@ -359,10 +359,21 @@ public class FireDangerRatings {
 
 	private static double tempValue() {
 		double tempValue;
+		int tempInt = tempInt();
 		double diff = 0;
-		int tempInt = 3;
 		final double[] A = { -0.185900, -0.85900, -0.05966, -0.07737 };
 		final double[] B = { 30.0, 19.2, 13.8, 22.5 };
+		diff = FireDangerRatings.dryBulbTemperature_
+				- FireDangerRatings.wetBulbTemperature_;
+		tempValue = B[tempInt] * Math.exp(A[tempInt] * diff);
+		if (tempValue < 1)
+			tempValue = 1;
+		return tempValue;
+	}
+
+	private static int tempInt() {
+		double diff = 0;
+		int tempInt = 3;
 		final double[] rangeDrytoWet = { 4.5, 12.5, 27.5 };
 		diff = FireDangerRatings.dryBulbTemperature_
 				- FireDangerRatings.wetBulbTemperature_;
@@ -372,10 +383,7 @@ public class FireDangerRatings {
 				break;
 			}
 		}
-		tempValue = B[tempInt] * Math.exp(A[tempInt] * diff);
-		if (tempValue < 1)
-			tempValue = 1;
-		return tempValue;
+		return tempInt;
 	}
 
 	/**
